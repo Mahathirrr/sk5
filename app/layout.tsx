@@ -8,6 +8,9 @@ const dmSans = DM_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Skillopa - Platform Pembelajaran Online",
   description: "Belajar skill baru dari instruktur terbaik",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -16,12 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
+    <html lang="id" className="scroll-smooth">
       <body className={dmSans.className}>
-        <Navbar />
-        <main>{children}</main>
+        <div className="relative min-h-screen bg-background">
+          <Navbar />
+          <div className="container mx-auto px-4">{children}</div>
+        </div>
       </body>
     </html>
   );
 }
-

@@ -3,7 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth/hooks";
 import { supabase } from "@/lib/supabase/client";
-import { LogIn, LogOut } from "lucide-react";
+import { LogIn, LogOut, Github, Mail } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const AuthButton = () => {
   const { user, isLoading } = useAuth();
@@ -39,23 +45,29 @@ export const AuthButton = () => {
   }
 
   return (
-    <div className="flex gap-2">
-      <Button
-        variant="outline"
-        onClick={() => handleLogin("google")}
-        className="gap-2"
-      >
-        <LogIn className="h-4 w-4" />
-        Masuk dengan Google
-      </Button>
-      <Button
-        variant="outline"
-        onClick={() => handleLogin("github")}
-        className="gap-2"
-      >
-        <LogIn className="h-4 w-4" />
-        Masuk dengan GitHub
-      </Button>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="default" className="gap-2">
+          <LogIn className="h-4 w-4" />
+          Masuk
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuItem
+          onClick={() => handleLogin("google")}
+          className="gap-2 cursor-pointer"
+        >
+          <Mail className="h-4 w-4" />
+          <span>Masuk dengan Google</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => handleLogin("github")}
+          className="gap-2 cursor-pointer"
+        >
+          <Github className="h-4 w-4" />
+          <span>Masuk dengan GitHub</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
