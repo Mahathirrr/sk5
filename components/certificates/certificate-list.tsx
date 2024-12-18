@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Certificate } from '@/lib/certificates/types';
-import { CertificateCard } from './certificate-card';
-import { useToast } from '@/components/ui/use-toast';
+import { useState } from "react";
+import { Certificate } from "@/lib/certificates/types";
+import { CertificateCard } from "./certificate-card";
+import { useToast } from "@/components/ui/use-toast";
 
 interface CertificateListProps {
   certificates: Certificate[];
@@ -18,14 +18,14 @@ export function CertificateList({ certificates }: CertificateListProps) {
       setIsDownloading(true);
       // TODO: Implement certificate PDF generation and download
       toast({
-        title: 'Sertifikat berhasil diunduh',
-        description: 'File sertifikat telah tersimpan di perangkat Anda.',
+        title: "Sertifikat berhasil diunduh",
+        description: "File sertifikat telah tersimpan di perangkat Anda.",
       });
     } catch (error) {
       toast({
-        title: 'Gagal mengunduh sertifikat',
-        description: 'Terjadi kesalahan saat mengunduh sertifikat.',
-        variant: 'destructive',
+        title: "Gagal mengunduh sertifikat",
+        description: "Terjadi kesalahan saat mengunduh sertifikat.",
+        variant: "destructive",
       });
     } finally {
       setIsDownloading(false);
@@ -35,13 +35,13 @@ export function CertificateList({ certificates }: CertificateListProps) {
   const handleShare = async (certificate: Certificate) => {
     try {
       await navigator.share({
-        title: \`Sertifikat \${certificate.metadata.courseName}\`,
-        text: \`Saya telah menyelesaikan kursus \${certificate.metadata.courseName} di Skillopa!\`,
-        url: \`https://skillopa.com/certificates/\${certificate.id}\`,
+        title: `Sertifikat ${certificate.metadata.courseName}`,
+        text: `Saya telah menyelesaikan kursus ${certificate.metadata.courseName} di Skillopa!`,
+        url: `https://skillopa.com/certificates/${certificate.id}`,
       });
     } catch (error) {
       // User cancelled or share not supported
-      console.error('Share failed:', error);
+      console.error("Share failed:", error);
     }
   };
 
@@ -58,3 +58,4 @@ export function CertificateList({ certificates }: CertificateListProps) {
     </div>
   );
 }
+

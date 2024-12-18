@@ -1,5 +1,5 @@
-import { supabase } from '@/lib/supabase/client';
-import { Discussion, Comment } from './types';
+import { supabase } from "@/lib/supabase/client";
+import { Discussion, Comment } from "./types";
 
 export async function createDiscussion(data: {
   courseId: string;
@@ -8,21 +8,23 @@ export async function createDiscussion(data: {
   content: string;
 }): Promise<Discussion> {
   const { data: discussion, error } = await supabase
-    .from('discussions')
+    .from("discussions")
     .insert({
       course_id: data.courseId,
       user_id: data.userId,
       title: data.title,
       content: data.content,
     })
-    .select(\`
+    .select(
+      `
       *,
       user:users (
         id,
         full_name,
         avatar_url
       )
-    \`)
+    `,
+    )
     .single();
 
   if (error) throw error;
@@ -31,8 +33,9 @@ export async function createDiscussion(data: {
 
 export async function getDiscussions(courseId: string): Promise<Discussion[]> {
   const { data, error } = await supabase
-    .from('discussions')
-    .select(\`
+    .from("discussions")
+    .select(
+      `
       *,
       user:users (
         id,
@@ -40,9 +43,10 @@ export async function getDiscussions(courseId: string): Promise<Discussion[]> {
         avatar_url
       ),
       comments:comments (count)
-    \`)
-    .eq('course_id', courseId)
-    .order('created_at', { ascending: false });
+    `,
+    )
+    .eq("course_id", courseId)
+    .order("created_at", { ascending: false });
 
   if (error) throw error;
   return data;
@@ -55,23 +59,26 @@ export async function createComment(data: {
   parentId?: string;
 }): Promise<Comment> {
   const { data: comment, error } = await supabase
-    .from('comments')
+    .from("comments")
     .insert({
       discussion_id: data.discussionId,
       user_id: data.userId,
       content: data.content,
       parent_id: data.parentId,
     })
-    .select(\`
+    .select(
+      `
       *,
       user:users (
         id,
         full_name,
         avatar_url
       )
-    \`)
+    `,
+    )
     .single();
 
   if (error) throw error;
   return comment;
 }
+

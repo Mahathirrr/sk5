@@ -1,17 +1,17 @@
-{`'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
-import { createPayment } from '@/lib/payments/api';
-import { Loader2 } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { createPayment } from "@/lib/payments/api";
+import { Loader2 } from "lucide-react";
 
 interface PaymentDialogProps {
   courseId: string;
@@ -45,9 +45,10 @@ export function PaymentDialog({
       window.location.href = payment.paymentUrl;
     } catch (error) {
       toast({
-        title: 'Gagal memproses pembayaran',
-        description: 'Terjadi kesalahan saat memproses pembayaran. Silakan coba lagi.',
-        variant: 'destructive',
+        title: "Gagal memproses pembayaran",
+        description:
+          "Terjadi kesalahan saat memproses pembayaran. Silakan coba lagi.",
+        variant: "destructive",
       });
       setIsLoading(false);
     }
@@ -68,7 +69,7 @@ export function PaymentDialog({
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Total Pembayaran</span>
               <span className="text-lg font-bold">
-                Rp {price.toLocaleString('id-ID')}
+                Rp {price.toLocaleString("id-ID")}
               </span>
             </div>
           </div>
@@ -81,10 +82,11 @@ export function PaymentDialog({
             {isLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : null}
-            {isLoading ? 'Memproses...' : 'Bayar Sekarang'}
+            {isLoading ? "Memproses..." : "Bayar Sekarang"}
           </Button>
         </div>
       </DialogContent>
     </Dialog>
   );
-}`}
+}
+

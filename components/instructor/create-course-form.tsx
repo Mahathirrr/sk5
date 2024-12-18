@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useRouter } from 'next/navigation';
-import { useToast } from '@/components/ui/use-toast';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 import {
   Form,
   FormControl,
@@ -13,33 +13,33 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { createCourse } from '@/lib/courses/api';
-import { Upload, Loader2 } from 'lucide-react';
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { createCourse } from "@/lib/courses/api";
+import { Upload, Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   title: z
     .string()
-    .min(5, 'Judul minimal 5 karakter')
-    .max(100, 'Judul maksimal 100 karakter'),
+    .min(5, "Judul minimal 5 karakter")
+    .max(100, "Judul maksimal 100 karakter"),
   description: z
     .string()
-    .min(20, 'Deskripsi minimal 20 karakter')
-    .max(1000, 'Deskripsi maksimal 1000 karakter'),
-  category: z.string().min(1, 'Pilih kategori'),
-  difficulty: z.enum(['beginner', 'intermediate', 'advanced']),
-  price: z.number().min(0, 'Harga tidak boleh negatif'),
-  thumbnailUrl: z.string().url('URL thumbnail tidak valid').optional(),
+    .min(20, "Deskripsi minimal 20 karakter")
+    .max(1000, "Deskripsi maksimal 1000 karakter"),
+  category: z.string().min(1, "Pilih kategori"),
+  difficulty: z.enum(["beginner", "intermediate", "advanced"]),
+  price: z.number().min(0, "Harga tidak boleh negatif"),
+  thumbnailUrl: z.string().url("URL thumbnail tidak valid").optional(),
 });
 
 export function CreateCourseForm() {
@@ -50,12 +50,12 @@ export function CreateCourseForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
-      description: '',
-      category: '',
-      difficulty: 'beginner',
+      title: "",
+      description: "",
+      category: "",
+      difficulty: "beginner",
       price: 0,
-      thumbnailUrl: '',
+      thumbnailUrl: "",
     },
   });
 
@@ -63,18 +63,19 @@ export function CreateCourseForm() {
     try {
       setIsLoading(true);
       const course = await createCourse(values);
-      
+
       toast({
-        title: 'Kursus berhasil dibuat',
-        description: 'Anda akan diarahkan ke halaman edit kursus.',
+        title: "Kursus berhasil dibuat",
+        description: "Anda akan diarahkan ke halaman edit kursus.",
       });
-      
-      router.push(\`/instructor/courses/\${course.id}/edit\`);
+
+      router.push(`/instructor/courses/${course.id}/edit`);
     } catch (error) {
       toast({
-        title: 'Gagal membuat kursus',
-        description: 'Terjadi kesalahan saat membuat kursus. Silakan coba lagi.',
-        variant: 'destructive',
+        title: "Gagal membuat kursus",
+        description:
+          "Terjadi kesalahan saat membuat kursus. Silakan coba lagi.",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -222,11 +223,7 @@ export function CreateCourseForm() {
         />
 
         <div className="flex justify-end gap-4">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => router.back()}
-          >
+          <Button type="button" variant="outline" onClick={() => router.back()}>
             Batal
           </Button>
           <Button type="submit" disabled={isLoading}>
@@ -238,3 +235,4 @@ export function CreateCourseForm() {
     </Form>
   );
 }
+

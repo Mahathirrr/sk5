@@ -1,19 +1,19 @@
-{`'use client';
+"use client";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { MessageSquare, Plus } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
-import { id } from 'date-fns/locale';
-import { CreateDiscussionDialog } from './create-discussion-dialog';
-import { Discussion } from '@/lib/discussions/types';
+} from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { MessageSquare, Plus } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
+import { id } from "date-fns/locale";
+import { CreateDiscussionDialog } from "./create-discussion-dialog";
+import { Discussion } from "@/lib/discussions/types";
 
 interface DiscussionListProps {
   courseId: string;
@@ -52,7 +52,7 @@ export function DiscussionList({
                 <div>
                   <h3 className="font-semibold">{discussion.title}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {discussion.user.full_name} •{' '}
+                    {discussion.user.full_name} •{" "}
                     {formatDistanceToNow(new Date(discussion.created_at), {
                       addSuffix: true,
                       locale: id,
@@ -82,4 +82,5 @@ export function DiscussionList({
       />
     </div>
   );
-}`}
+}
+

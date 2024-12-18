@@ -159,36 +159,39 @@ $$ language plpgsql security definer;
 -- Get course discussions with comments
 create or replace function get_course_discussions(course_id uuid)
 returns json as $$
-  select json_agg(json_build_object(
-    'id', d.id,
-    'title', d.title,
-    'content', d.content,
-    'createdAt', d.created_at,
-    'user', json_build_object(
-      'id', u.id,
-      'fullName', u.full_name,
-      'avatarUrl', u.avatar_url
-    ),
-    'comments', (
-      select json_agg(json_build_object(
-        'id', c.id,
-        'content', c.content,
-        'createdAt', c.created_at,
-        'user', json_build_object(
-          'id', cu.id,
-          'fullName', cu.full_name,
-          'avatarUrl', cu.avatar_url
-        )
-      ) order by c.created_at)
-      from comments c
-      join users cu on cu.id = c.user_id
-      where c.discussion_id = d.id
-      and c.parent_id is null
+  select json_agg(
+    json_build_object(
+      'id', d.id,
+      'title', d.title,
+      'content', d.content,
+      'createdAt', d.created_at,
+      'user', json_build_object(
+        'id', u.id,
+        'fullName', u.full_name,
+        'avatarUrl', u.avatar_url
+      ),
+      'comments', (
+        select json_agg(json_build_object(
+          'id', c.id,
+          'content', c.content,
+          'createdAt', c.created_at,
+          'user', json_build_object(
+            'id', cu.id,
+            'fullName', cu.full_name,
+            'avatarUrl', cu.avatar_url
+          )
+        ) order by c.created_at)
+        from comments c
+        join users cu on cu.id = c.user_id
+        where c.discussion_id = d.id
+        and c.parent_id is null
+      )
     )
-  ))
+  )
   from discussions d
   join users u on u.id = d.user_id
   where d.course_id = course_id
+  group by d.id, d.title, d.content, d.created_at, u.id, u.full_name, u.avatar_url
   order by d.created_at desc;
 $$ language sql security definer;
 

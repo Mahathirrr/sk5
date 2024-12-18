@@ -1,8 +1,8 @@
-{`import { getCourseById } from '@/lib/courses/api';
-import { CourseHeader } from '@/components/courses/course-header';
-import { CourseContent } from '@/components/courses/course-content';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { notFound } from 'next/navigation';
+import { getCourseById } from "@/lib/courses/api";
+import { CourseHeader } from "@/components/courses/course-header";
+import { CourseContent } from "@/components/courses/course-content";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { notFound } from "next/navigation";
 
 interface CoursePageProps {
   params: {
@@ -26,10 +26,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
   if (session?.user) {
     const { data: enrollment } = await supabase
-      .from('enrollments')
-      .select('*')
-      .eq('course_id', course.id)
-      .eq('user_id', session.user.id)
+      .from("enrollments")
+      .select("*")
+      .eq("course_id", course.id)
+      .eq("user_id", session.user.id)
       .single();
 
     isEnrolled = !!enrollment;
@@ -42,10 +42,11 @@ export default async function CoursePage({ params }: CoursePageProps) {
         course={course}
         isEnrolled={isEnrolled}
         onEnroll={async () => {
-          'use server';
+          "use server";
           // TODO: Implement enrollment logic
         }}
       />
     </div>
   );
-}`}
+}
+

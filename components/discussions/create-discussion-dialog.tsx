@@ -1,9 +1,9 @@
-{`'use client';
+"use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import {
   Dialog,
   DialogContent,
@@ -11,8 +11,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -20,21 +20,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/components/ui/use-toast';
-import { createDiscussion } from '@/lib/discussions/api';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { createDiscussion } from "@/lib/discussions/api";
 
 const formSchema = z.object({
   title: z
     .string()
-    .min(5, 'Judul minimal 5 karakter')
-    .max(100, 'Judul maksimal 100 karakter'),
+    .min(5, "Judul minimal 5 karakter")
+    .max(100, "Judul maksimal 100 karakter"),
   content: z
     .string()
-    .min(10, 'Konten minimal 10 karakter')
-    .max(1000, 'Konten maksimal 1000 karakter'),
+    .min(10, "Konten minimal 10 karakter")
+    .max(1000, "Konten maksimal 1000 karakter"),
 });
 
 interface CreateDiscussionDialogProps {
@@ -55,8 +55,8 @@ export function CreateDiscussionDialog({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
-      content: '',
+      title: "",
+      content: "",
     },
   });
 
@@ -68,20 +68,21 @@ export function CreateDiscussionDialog({
         title: values.title,
         content: values.content,
       });
-      
+
       toast({
-        title: 'Diskusi berhasil dibuat',
-        description: 'Diskusi Anda telah berhasil dipublikasikan.',
+        title: "Diskusi berhasil dibuat",
+        description: "Diskusi Anda telah berhasil dipublikasikan.",
       });
-      
+
       form.reset();
       onOpenChange(false);
       onDiscussionCreated();
     } catch (error) {
       toast({
-        title: 'Gagal membuat diskusi',
-        description: 'Terjadi kesalahan saat membuat diskusi. Silakan coba lagi.',
-        variant: 'destructive',
+        title: "Gagal membuat diskusi",
+        description:
+          "Terjadi kesalahan saat membuat diskusi. Silakan coba lagi.",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -94,7 +95,8 @@ export function CreateDiscussionDialog({
         <DialogHeader>
           <DialogTitle>Buat Diskusi Baru</DialogTitle>
           <DialogDescription>
-            Ajukan pertanyaan atau mulai diskusi dengan siswa lain dan instruktur
+            Ajukan pertanyaan atau mulai diskusi dengan siswa lain dan
+            instruktur
           </DialogDescription>
         </DialogHeader>
 
@@ -140,7 +142,7 @@ export function CreateDiscussionDialog({
                 Batal
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? 'Memuat...' : 'Publikasikan'}
+                {isLoading ? "Memuat..." : "Publikasikan"}
               </Button>
             </DialogFooter>
           </form>
@@ -148,4 +150,5 @@ export function CreateDiscussionDialog({
       </DialogContent>
     </Dialog>
   );
-}`}
+}
+

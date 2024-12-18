@@ -1,4 +1,4 @@
-{`'use client';
+'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize, SkipForward, SkipBack } from 'lucide-react';
@@ -203,4 +203,4 @@ export function VideoPlayer({ videoUrl, onProgress, onComplete }: VideoPlayerPro
       </div>
     </div>
   );
-}`}
+}

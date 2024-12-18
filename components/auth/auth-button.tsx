@@ -1,18 +1,18 @@
-{`'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/lib/auth/hooks';
-import { supabase } from '@/lib/supabase/client';
-import { LogIn, LogOut } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/lib/auth/hooks";
+import { supabase } from "@/lib/supabase/client";
+import { LogIn, LogOut } from "lucide-react";
 
 export const AuthButton = () => {
   const { user, isLoading } = useAuth();
 
-  const handleLogin = async (provider: 'google' | 'github') => {
+  const handleLogin = async (provider: "google" | "github") => {
     await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: \`\${window.location.origin}/auth/callback\`,
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
   };
@@ -31,11 +31,7 @@ export const AuthButton = () => {
 
   if (user) {
     return (
-      <Button
-        variant="ghost"
-        onClick={handleLogout}
-        className="gap-2"
-      >
+      <Button variant="ghost" onClick={handleLogout} className="gap-2">
         <LogOut className="h-4 w-4" />
         Keluar
       </Button>
@@ -46,7 +42,7 @@ export const AuthButton = () => {
     <div className="flex gap-2">
       <Button
         variant="outline"
-        onClick={() => handleLogin('google')}
+        onClick={() => handleLogin("google")}
         className="gap-2"
       >
         <LogIn className="h-4 w-4" />
@@ -54,7 +50,7 @@ export const AuthButton = () => {
       </Button>
       <Button
         variant="outline"
-        onClick={() => handleLogin('github')}
+        onClick={() => handleLogin("github")}
         className="gap-2"
       >
         <LogIn className="h-4 w-4" />
@@ -62,4 +58,4 @@ export const AuthButton = () => {
       </Button>
     </div>
   );
-};`}
+};

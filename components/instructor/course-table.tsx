@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Table,
@@ -7,11 +7,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { CourseStats } from '@/lib/instructor/types';
-import { Edit2, BarChart2 } from 'lucide-react';
-import Link from 'next/link';
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { CourseStats } from "@/lib/instructor/types";
+import { Edit2, BarChart2 } from "lucide-react";
+import Link from "next/link";
 
 interface CourseTableProps {
   courses: CourseStats[];
@@ -35,22 +35,26 @@ export function CourseTable({ courses }: CourseTableProps) {
           {courses.map((course) => (
             <TableRow key={course.id}>
               <TableCell className="font-medium">{course.title}</TableCell>
-              <TableCell className="text-right">{course.studentCount}</TableCell>
+              <TableCell className="text-right">
+                {course.studentCount}
+              </TableCell>
               <TableCell className="text-right">
                 {Math.round(course.completionRate)}%
               </TableCell>
               <TableCell className="text-right">
-                Rp {course.revenue.toLocaleString('id-ID')}
+                Rp {course.revenue.toLocaleString("id-ID")}
               </TableCell>
-              <TableCell className="text-right">{course.rating.toFixed(1)}</TableCell>
+              <TableCell className="text-right">
+                {course.rating.toFixed(1)}
+              </TableCell>
               <TableCell className="text-right">
                 <div className="flex justify-end gap-2">
-                  <Link href={\`/instructor/courses/\${course.id}/analytics\`}>
+                  <Link href={`/instructor/courses/${course.id}/analytics`}>
                     <Button variant="ghost" size="icon">
                       <BarChart2 className="h-4 w-4" />
                     </Button>
                   </Link>
-                  <Link href={\`/instructor/courses/\${course.id}/edit\`}>
+                  <Link href={`/instructor/courses/${course.id}/edit`}>
                     <Button variant="ghost" size="icon">
                       <Edit2 className="h-4 w-4" />
                     </Button>
@@ -64,3 +68,4 @@ export function CourseTable({ courses }: CourseTableProps) {
     </div>
   );
 }
+

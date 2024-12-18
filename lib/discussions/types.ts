@@ -1,6 +1,6 @@
-{`import { Database } from '@/lib/supabase/types';
+import { Database } from "@/lib/supabase/types";
 
-export type Discussion = Database['public']['Tables']['discussions']['Row'] & {
+export type Discussion = Database["public"]["Tables"]["discussions"]["Row"] & {
   user: {
     id: string;
     full_name: string | null;
@@ -11,11 +11,12 @@ export type Discussion = Database['public']['Tables']['discussions']['Row'] & {
   };
 };
 
-export type Comment = Database['public']['Tables']['comments']['Row'] & {
+export type Comment = Database["public"]["Tables"]["comments"]["Row"] & {
   user: {
     id: string;
     full_name: string | null;
     avatar_url: string | null;
   };
   replies?: Comment[];
-};`}
+};
+

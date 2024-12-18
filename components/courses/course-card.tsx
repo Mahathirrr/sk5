@@ -1,9 +1,14 @@
-{`import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { CourseWithInstructor } from '@/lib/courses/types';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { BookOpen, Users } from 'lucide-react';
-import Link from 'next/link';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { CourseWithInstructor } from "@/lib/courses/types";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { BookOpen, Users } from "lucide-react";
+import Link from "next/link";
 
 interface CourseCardProps {
   course: CourseWithInstructor;
@@ -11,26 +16,35 @@ interface CourseCardProps {
 
 export function CourseCard({ course }: CourseCardProps) {
   return (
-    <Link href={\`/courses/\${course.id}\`}>
+    <Link href={`/courses/${course.id}`}>
       <Card className="h-full overflow-hidden transition-all hover:border-primary">
         <CardHeader className="p-0">
           <div className="aspect-video w-full overflow-hidden">
             <img
-              src={course.thumbnail_url || 'https://via.placeholder.com/640x360'}
+              src={
+                course.thumbnail_url || "https://via.placeholder.com/640x360"
+              }
               alt={course.title}
               className="h-full w-full object-cover transition-all hover:scale-105"
             />
           </div>
         </CardHeader>
         <CardContent className="grid gap-2.5 p-4">
-          <Badge className="w-fit" variant={
-            course.difficulty === 'beginner' ? 'default' :
-            course.difficulty === 'intermediate' ? 'secondary' :
-            'destructive'
-          }>
-            {course.difficulty === 'beginner' ? 'Pemula' :
-             course.difficulty === 'intermediate' ? 'Menengah' :
-             'Lanjutan'}
+          <Badge
+            className="w-fit"
+            variant={
+              course.difficulty === "beginner"
+                ? "default"
+                : course.difficulty === "intermediate"
+                  ? "secondary"
+                  : "destructive"
+            }
+          >
+            {course.difficulty === "beginner"
+              ? "Pemula"
+              : course.difficulty === "intermediate"
+                ? "Menengah"
+                : "Lanjutan"}
           </Badge>
           <h3 className="line-clamp-2 text-lg font-semibold">{course.title}</h3>
           <p className="line-clamp-2 text-sm text-muted-foreground">
@@ -55,4 +69,4 @@ export function CourseCard({ course }: CourseCardProps) {
       </Card>
     </Link>
   );
-}`}
+}

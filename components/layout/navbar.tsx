@@ -1,12 +1,12 @@
-{`'use client';
+"use client";
 
-import { Logo } from '@/components/ui/logo';
-import { AuthButton } from '@/components/auth/auth-button';
-import { NotificationList } from '@/components/notifications/notification-list';
-import { useAuth } from '@/lib/auth/hooks';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { BookOpen, GraduationCap } from 'lucide-react';
+import { Logo } from "@/components/ui/logo";
+import { AuthButton } from "@/components/auth/auth-button";
+import { NotificationList } from "@/components/notifications/notification-list";
+import { useAuth } from "@/lib/auth/hooks";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { BookOpen, GraduationCap } from "lucide-react";
 
 export const Navbar = () => {
   const { user } = useAuth();
@@ -25,7 +25,7 @@ export const Navbar = () => {
               Kursus
             </Button>
           </Link>
-          {user?.role === 'instructor' && (
+          {user?.role === "instructor" && (
             <Link href="/instructor/dashboard">
               <Button variant="ghost" className="gap-2">
                 <GraduationCap className="h-4 w-4" />
@@ -42,4 +42,5 @@ export const Navbar = () => {
       </div>
     </nav>
   );
-};`}
+};
+

@@ -1,16 +1,16 @@
-{`'use client';
+"use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -18,15 +18,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
-import { useAccessToken } from '@/lib/access-tokens/api';
-import { Loader2 } from 'lucide-react';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { useAccessToken } from "@/lib/access-tokens/api";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
-  token: z.string().min(1, 'Token tidak boleh kosong'),
+  token: z.string().min(1, "Token tidak boleh kosong"),
 });
 
 interface AccessTokenDialogProps {
@@ -47,7 +47,7 @@ export function AccessTokenDialog({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      token: '',
+      token: "",
     },
   });
 
@@ -61,23 +61,25 @@ export function AccessTokenDialog({
 
       if (success) {
         toast({
-          title: 'Token berhasil digunakan',
-          description: 'Anda sekarang memiliki akses ke kursus ini.',
+          title: "Token berhasil digunakan",
+          description: "Anda sekarang memiliki akses ke kursus ini.",
         });
         onSuccess();
         onOpenChange(false);
       } else {
         toast({
-          title: 'Token tidak valid',
-          description: 'Token yang Anda masukkan tidak valid atau sudah digunakan.',
-          variant: 'destructive',
+          title: "Token tidak valid",
+          description:
+            "Token yang Anda masukkan tidak valid atau sudah digunakan.",
+          variant: "destructive",
         });
       }
     } catch (error) {
       toast({
-        title: 'Gagal menggunakan token',
-        description: 'Terjadi kesalahan saat menggunakan token. Silakan coba lagi.',
-        variant: 'destructive',
+        title: "Gagal menggunakan token",
+        description:
+          "Terjadi kesalahan saat menggunakan token. Silakan coba lagi.",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -103,10 +105,7 @@ export function AccessTokenDialog({
                 <FormItem>
                   <FormLabel>Token Akses</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Masukkan token akses Anda"
-                      {...field}
-                    />
+                    <Input placeholder="Masukkan token akses Anda" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -117,11 +116,12 @@ export function AccessTokenDialog({
               {isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
-              {isLoading ? 'Memproses...' : 'Gunakan Token'}
+              {isLoading ? "Memproses..." : "Gunakan Token"}
             </Button>
           </form>
         </Form>
       </DialogContent>
     </Dialog>
   );
-}`}
+}
+

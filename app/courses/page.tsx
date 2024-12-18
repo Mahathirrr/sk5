@@ -1,5 +1,5 @@
-{`import { getCourses } from '@/lib/courses/api';
-import { CourseCard } from '@/components/courses/course-card';
+import { getCourses } from "@/lib/courses/api";
+import { CourseCard } from "@/components/courses/course-card";
 
 export default async function CoursesPage() {
   const courses = await getCourses();
@@ -20,4 +20,5 @@ export default async function CoursesPage() {
       </div>
     </div>
   );
-}`}
+}
+

@@ -1,8 +1,8 @@
-{`import { Lesson } from '@/lib/courses/types';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { CheckCircle2, Lock, PlayCircle } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Lesson } from "@/lib/courses/types";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { CheckCircle2, Lock, PlayCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface LessonListProps {
   lessons: Lesson[];
@@ -33,9 +33,9 @@ export function LessonList({
                 key={lesson.id}
                 variant="ghost"
                 className={cn(
-                  'w-full justify-start gap-2',
-                  isCurrent && 'bg-accent',
-                  !isEnrolled && 'cursor-not-allowed opacity-60'
+                  "w-full justify-start gap-2",
+                  isCurrent && "bg-accent",
+                  !isEnrolled && "cursor-not-allowed opacity-60",
                 )}
                 onClick={() => isEnrolled && onSelectLesson(lesson.id)}
               >
@@ -61,4 +61,5 @@ export function LessonList({
       </div>
     </ScrollArea>
   );
-}`}
+}
+

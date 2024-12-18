@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CourseAnalytics } from '@/lib/analytics/types';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CourseAnalytics } from "@/lib/analytics/types";
 import {
   Bar,
   BarChart,
@@ -9,8 +9,8 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-} from 'recharts';
-import { Users, BookOpen, Clock, Award } from 'lucide-react';
+} from "recharts";
+import { Users, BookOpen, Clock, Award } from "lucide-react";
 
 interface AnalyticsDashboardProps {
   analytics: CourseAnalytics;
@@ -18,7 +18,7 @@ interface AnalyticsDashboardProps {
 
 export function AnalyticsDashboard({ analytics }: AnalyticsDashboardProps) {
   const completionData = analytics.completionRateByWeek.map((data) => ({
-    name: \`Minggu \${data.week}\`,
+    name: `Minggu ${data.week}`,
     rate: data.rate,
   }));
 
@@ -40,11 +40,15 @@ export function AnalyticsDashboard({ analytics }: AnalyticsDashboardProps) {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pelajaran Selesai</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Pelajaran Selesai
+            </CardTitle>
             <BookOpen className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{analytics.completedLessons}</div>
+            <div className="text-2xl font-bold">
+              {analytics.completedLessons}
+            </div>
             <p className="text-xs text-muted-foreground">
               dari {analytics.totalLessons} pelajaran
             </p>
@@ -61,14 +65,17 @@ export function AnalyticsDashboard({ analytics }: AnalyticsDashboardProps) {
               {Math.round(analytics.totalWatchTime / 3600)} jam
             </div>
             <p className="text-xs text-muted-foreground">
-              rata-rata {Math.round(analytics.averageWatchTime / 60)} menit/siswa
+              rata-rata {Math.round(analytics.averageWatchTime / 60)}{" "}
+              menit/siswa
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tingkat Penyelesaian</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Tingkat Penyelesaian
+            </CardTitle>
             <Award className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -102,7 +109,7 @@ export function AnalyticsDashboard({ analytics }: AnalyticsDashboardProps) {
                   fontSize={12}
                   tickLine={false}
                   axisLine={false}
-                  tickFormatter={(value) => \`\${value}%\`}
+                  tickFormatter={(value) => `${value}%`}
                 />
                 <Tooltip />
                 <Bar
@@ -118,3 +125,4 @@ export function AnalyticsDashboard({ analytics }: AnalyticsDashboardProps) {
     </div>
   );
 }
+

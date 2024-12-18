@@ -1,12 +1,12 @@
-{`'use client';
+"use client";
 
-import { useState } from 'react';
-import { CourseDetails } from '@/lib/courses/types';
-import { VideoPlayer } from './video-player';
-import { LessonList } from './lesson-list';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
-import { Lock } from 'lucide-react';
+import { useState } from "react";
+import { CourseDetails } from "@/lib/courses/types";
+import { VideoPlayer } from "./video-player";
+import { LessonList } from "./lesson-list";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { Lock } from "lucide-react";
 
 interface CourseContentProps {
   course: CourseDetails;
@@ -14,25 +14,31 @@ interface CourseContentProps {
   onEnroll: () => Promise<void>;
 }
 
-export function CourseContent({ course, isEnrolled, onEnroll }: CourseContentProps) {
+export function CourseContent({
+  course,
+  isEnrolled,
+  onEnroll,
+}: CourseContentProps) {
   const [currentLessonId, setCurrentLessonId] = useState(course.lessons[0]?.id);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const { toast } = useToast();
 
-  const currentLesson = course.lessons.find((lesson) => lesson.id === currentLessonId);
+  const currentLesson = course.lessons.find(
+    (lesson) => lesson.id === currentLessonId,
+  );
 
   const handleLessonComplete = () => {
     if (currentLessonId && !completedLessons.includes(currentLessonId)) {
       setCompletedLessons([...completedLessons, currentLessonId]);
-      
+
       toast({
-        title: 'Pelajaran selesai! 🎉',
-        description: 'Lanjutkan ke pelajaran berikutnya.',
+        title: "Pelajaran selesai! 🎉",
+        description: "Lanjutkan ke pelajaran berikutnya.",
       });
 
       // Automatically move to next lesson
       const currentIndex = course.lessons.findIndex(
-        (lesson) => lesson.id === currentLessonId
+        (lesson) => lesson.id === currentLessonId,
       );
       if (currentIndex < course.lessons.length - 1) {
         setCurrentLessonId(course.lessons[currentIndex + 1].id);
@@ -42,7 +48,7 @@ export function CourseContent({ course, isEnrolled, onEnroll }: CourseContentPro
 
   const handleLessonProgress = async (progress: number) => {
     // TODO: Save progress to database
-    console.log('Progress:', progress);
+    console.log("Progress:", progress);
   };
 
   return (
@@ -93,4 +99,5 @@ export function CourseContent({ course, isEnrolled, onEnroll }: CourseContentPro
       </div>
     </div>
   );
-}`}
+}
+

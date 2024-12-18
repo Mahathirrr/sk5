@@ -1,17 +1,17 @@
-{`'use client';
+"use client";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { useToast } from '@/components/ui/use-toast';
-import { generateAccessToken } from '@/lib/access-tokens/api';
-import { Loader2, Copy, Check } from 'lucide-react';
+} from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
+import { generateAccessToken } from "@/lib/access-tokens/api";
+import { Loader2, Copy, Check } from "lucide-react";
 
 interface TokenManagerProps {
   courseId: string;
@@ -29,17 +29,17 @@ export function TokenManager({ courseId }: TokenManagerProps) {
       const newToken = await generateAccessToken({
         courseId,
       });
-      
+
       setToken(newToken);
       toast({
-        title: 'Token berhasil dibuat',
-        description: 'Token akses baru telah dibuat dan siap digunakan.',
+        title: "Token berhasil dibuat",
+        description: "Token akses baru telah dibuat dan siap digunakan.",
       });
     } catch (error) {
       toast({
-        title: 'Gagal membuat token',
-        description: 'Terjadi kesalahan saat membuat token. Silakan coba lagi.',
-        variant: 'destructive',
+        title: "Gagal membuat token",
+        description: "Terjadi kesalahan saat membuat token. Silakan coba lagi.",
+        variant: "destructive",
       });
     } finally {
       setIsGenerating(false);
@@ -51,10 +51,10 @@ export function TokenManager({ courseId }: TokenManagerProps) {
       await navigator.clipboard.writeText(token);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-      
+
       toast({
-        title: 'Token disalin',
-        description: 'Token telah disalin ke clipboard.',
+        title: "Token disalin",
+        description: "Token telah disalin ke clipboard.",
       });
     }
   };
@@ -94,9 +94,10 @@ export function TokenManager({ courseId }: TokenManagerProps) {
           {isGenerating ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           ) : null}
-          {isGenerating ? 'Membuat Token...' : 'Generate Token Baru'}
+          {isGenerating ? "Membuat Token..." : "Generate Token Baru"}
         </Button>
       </CardContent>
     </Card>
   );
-}`}
+}
+
