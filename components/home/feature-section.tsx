@@ -23,28 +23,48 @@ const features = [
 
 export function FeatureSection() {
   return (
-    <section className="bg-background py-24">
-      <div className="container mx-auto max-w-3xl">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight">
+    <section className="py-16 bg-background">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
             Kenapa Memilih Skillopa?
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="text-base font-sans text-muted-foreground max-w-2xl mx-auto">
             Platform pembelajaran yang dirancang untuk kesuksesan Anda
           </p>
         </div>
 
-        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => (
+        <div className="grid md:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
             <div
-              key={feature.title}
-              className="group relative rounded-2xl border bg-card p-6 transition-colors hover:border-primary/50"
+              key={index}
+              className="bg-card p-6 rounded-lg shadow-sm 
+              transition-all duration-300 
+              hover:shadow-lg 
+              hover:bg-primary/5 
+              border border-transparent 
+              hover:border-primary/20 
+              group"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
-                <feature.icon className="h-6 w-6 text-primary" />
+              <div className="flex items-center mb-4">
+                <feature.icon
+                  className="w-8 h-8 text-primary mr-4 
+                  transition-colors duration-300 
+                  group-hover:text-primary/80"
+                />
+                <h3
+                  className="text-xl font-heading font-medium text-card-foreground 
+                transition-colors duration-300 
+                group-hover:text-primary"
+                >
+                  {feature.title}
+                </h3>
               </div>
-              <h3 className="mt-4 text-lg font-semibold">{feature.title}</h3>
-              <p className="mt-2 text-muted-foreground">
+              <p
+                className="text-sm font-sans text-muted-foreground 
+              transition-opacity duration-300 
+              group-hover:opacity-80"
+              >
                 {feature.description}
               </p>
             </div>

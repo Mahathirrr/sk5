@@ -6,7 +6,7 @@ export function Logo() {
         width="32"
         height="32"
         viewBox="0 0 300 300"
-        className="text-primary"
+        className="text-white"
       >
         <defs>
           <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -40,8 +40,8 @@ export function Logo() {
           opacity="0.7"
         />
       </svg>
-      <span className="text-xl font-semibold text-gray-800">
-        <span className="text-primary">Skill</span>opa
+      <span className="text-xl font-sans font-semibold text-white">
+        Skill<span className="text-white">opa</span>
       </span>
     </div>
   );
