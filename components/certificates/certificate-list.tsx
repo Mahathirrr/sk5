@@ -58,4 +58,3 @@ export function CertificateList({ certificates }: CertificateListProps) {
     </div>
   );
 }
-

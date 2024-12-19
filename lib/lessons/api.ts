@@ -50,10 +50,7 @@ export async function deleteLesson(id: string): Promise<void> {
   if (error) throw error;
 }
 
-export async function reorderLessons(
-  courseId: string,
-  lessonIds: string[],
-): Promise<void> {
+export async function reorderLessons(lessonIds: string[]): Promise<void> {
   const updates = lessonIds.map((id, index) => ({
     id,
     order: index,

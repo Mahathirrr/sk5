@@ -14,7 +14,6 @@ import { formatDistanceToNow } from "date-fns";
 import { id } from "date-fns/locale";
 import { CreateDiscussionDialog } from "./create-discussion-dialog";
 import { Discussion } from "@/lib/discussions/types";
-import { useAuth } from "@/lib/auth/hooks";
 
 interface DiscussionListProps {
   courseId: string;
@@ -28,7 +27,6 @@ export function DiscussionList({
   onDiscussionCreated,
 }: DiscussionListProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { user } = useAuth();
 
   return (
     <div className="space-y-4">

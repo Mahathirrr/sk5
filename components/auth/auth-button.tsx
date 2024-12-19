@@ -16,7 +16,7 @@ import Image from "next/image";
 
 export const AuthButton = () => {
   const [mounted, setMounted] = useState(false);
-  const { user, isLoading, error } = useAuth();
+  const { user, error } = useAuth();
   const { toast } = useToast();
 
   useEffect(() => {

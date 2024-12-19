@@ -22,7 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { validateAccessToken, useAccessToken } from "@/lib/access-tokens/api";
+import { validateAccessToken } from "@/lib/access-tokens/api";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/lib/auth/hooks";
 
@@ -78,26 +78,17 @@ export function AccessTokenDialog({
         return;
       }
 
-      const success = await useAccessToken({
-        token: values.token,
-        userId: user.id,
-      });
-
-      if (success) {
-        toast({
-          title: "Token berhasil digunakan",
-          description: "Anda sekarang memiliki akses ke kursus ini.",
-        });
-        onSuccess();
-        onOpenChange(false);
-      } else {
+      if (token.courseId !== courseId) {
         toast({
           title: "Token tidak valid",
-          description:
-            "Token yang Anda masukkan tidak valid atau sudah digunakan.",
+          description: "Token ini tidak dapat digunakan untuk kursus ini.",
           variant: "destructive",
         });
+        return;
       }
+
+      onSuccess();
+      onOpenChange(false);
     } catch (error) {
       toast({
         title: "Gagal menggunakan token",
