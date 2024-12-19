@@ -58,7 +58,7 @@ export function CourseContent({
           currentLesson && (
             <>
               <VideoPlayer
-                videoUrl={currentLesson.video_url}
+                videoUrl={currentLesson.videoUrl}
                 onProgress={handleLessonProgress}
                 onComplete={handleLessonComplete}
               />
@@ -100,4 +100,3 @@ export function CourseContent({
     </div>
   );
 }
-

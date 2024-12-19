@@ -4,7 +4,7 @@ export interface Lesson {
   title: string;
   description: string;
   videoUrl: string;
-  duration: number; // in seconds
+  duration: number;
   order: number;
   createdAt: string;
   updatedAt: string;
@@ -15,6 +15,7 @@ export interface CreateLessonData {
   title: string;
   description: string;
   videoUrl: string;
-  duration: number; // in minutes
+  duration: number;
   order: number;
 }
+

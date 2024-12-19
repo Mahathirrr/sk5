@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -10,29 +10,25 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { VideoPreview } from './video-preview';
-import { Loader2 } from 'lucide-react';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { VideoPreview } from "./video-preview";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
-  title: z
-    .string()
-    .min(3, 'Title must be at least 3 characters')
-    .max(100, 'Title must be less than 100 characters'),
-  description: z
-    .string()
-    .min(10, 'Description must be at least 10 characters')
-    .max(500, 'Description must be less than 500 characters'),
-  videoUrl: z.string().url('Please enter a valid video URL'),
-  duration: z.number().min(1, 'Duration must be at least 1 minute'),
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  videoUrl: z.string().url("Please enter a valid video URL"),
+  duration: z.number().min(1, "Duration must be at least 1 minute"),
 });
 
+type FormData = z.infer<typeof formSchema>;
+
 interface LessonFormProps {
-  initialData?: z.infer<typeof formSchema>;
-  onSubmit: (data: z.infer<typeof formSchema>) => Promise<void>;
+  initialData?: FormData;
+  onSubmit: (data: FormData) => Promise<void>;
   onCancel: () => void;
   isLoading: boolean;
 }
@@ -43,12 +39,12 @@ export function LessonForm({
   onCancel,
   isLoading,
 }: LessonFormProps) {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
-      title: '',
-      description: '',
-      videoUrl: '',
+      title: "",
+      description: "",
+      videoUrl: "",
       duration: 0,
     },
   });
@@ -118,11 +114,7 @@ export function LessonForm({
         />
 
         <div className="flex justify-end gap-4">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={onCancel}
-          >
+          <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
           </Button>
           <Button type="submit" disabled={isLoading}>
@@ -134,3 +126,4 @@ export function LessonForm({
     </Form>
   );
 }
+

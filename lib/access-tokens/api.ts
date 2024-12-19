@@ -58,7 +58,7 @@ export async function useAccessToken(
   // Create enrollment
   const { error: enrollmentError } = await supabase.from("enrollments").insert({
     user_id: data.userId,
-    course_id: token.course_id,
+    course_id: token.courseId,
     status: "active",
     progress: 0,
   });

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Lesson } from '@/lib/courses/types';
-import { Draggable } from '@hello-pangea/dnd';
-import { Button } from '@/components/ui/button';
-import { Pencil, Trash2, GripVertical } from 'lucide-react';
+import { Lesson } from "@/lib/lessons/types";
+import { Draggable } from "@hello-pangea/dnd";
+import { Button } from "@/components/ui/button";
+import { Pencil, Trash2, GripVertical } from "lucide-react";
 
 interface LessonListItemProps {
   lesson: Lesson;
@@ -36,11 +36,7 @@ export function LessonListItem({
             </p>
           </div>
           <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => onEdit(lesson)}
-            >
+            <Button variant="ghost" size="icon" onClick={() => onEdit(lesson)}>
               <Pencil className="h-4 w-4" />
             </Button>
             <Button
@@ -56,3 +52,4 @@ export function LessonListItem({
     </Draggable>
   );
 }
+

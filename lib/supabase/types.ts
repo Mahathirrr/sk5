@@ -22,8 +22,8 @@ export type Database = {
         Insert: {
           id: string;
           email: string;
-          full_name?: string;
-          avatar_url?: string;
+          full_name?: string | null;
+          avatar_url?: string | null;
           role?: "student" | "instructor";
           created_at?: string;
           updated_at?: string;
@@ -31,8 +31,8 @@ export type Database = {
         Update: {
           id?: string;
           email?: string;
-          full_name?: string;
-          avatar_url?: string;
+          full_name?: string | null;
+          avatar_url?: string | null;
           role?: "student" | "instructor";
           created_at?: string;
           updated_at?: string;
@@ -82,14 +82,14 @@ export type Database = {
       lessons: {
         Row: {
           id: string;
-          course_id: string;
+          courseId: string;
           title: string;
           description: string;
-          video_url: string;
+          videoUrl: string;
           order: number;
           duration: number;
-          created_at: string;
-          updated_at: string;
+          createdAt: string;
+          updatedAt: string;
         };
         Insert: {
           id?: string;
@@ -99,8 +99,8 @@ export type Database = {
           video_url: string;
           order: number;
           duration: number;
-          created_at?: string;
-          updated_at?: string;
+          createdAt?: string;
+          updatedAt?: string;
         };
         Update: {
           id?: string;
@@ -110,8 +110,8 @@ export type Database = {
           video_url?: string;
           order?: number;
           duration?: number;
-          created_at?: string;
-          updated_at?: string;
+          createdAt?: string;
+          updatedAt?: string;
         };
       };
       enrollments: {

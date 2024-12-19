@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Lesson } from "@/lib/courses/types";
+import { Lesson } from "@/lib/lessons/types";
 import {
   createLesson,
   updateLesson,
@@ -88,10 +88,7 @@ export function LessonManager({
   };
 
   const handleEdit = (lesson: Lesson) => {
-    setEditingLesson({
-      ...lesson,
-      videoUrl: lesson.video_url,
-    });
+    setEditingLesson(lesson);
     setIsDialogOpen(true);
   };
 

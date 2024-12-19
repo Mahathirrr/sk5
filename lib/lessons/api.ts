@@ -5,10 +5,10 @@ export async function createLesson(data: CreateLessonData): Promise<Lesson> {
   const { data: lesson, error } = await supabase
     .from("lessons")
     .insert({
-      course_id: data.courseId,
+      courseId: data.courseId,
       title: data.title,
       description: data.description,
-      video_url: data.videoUrl,
+      videoUrl: data.videoUrl,
       duration: data.duration * 60, // Convert minutes to seconds
       order: data.order,
     })
@@ -28,8 +28,9 @@ export async function updateLesson(
     .update({
       title: data.title,
       description: data.description,
-      video_url: data.videoUrl,
+      videoUrl: data.videoUrl,
       duration: data.duration ? data.duration * 60 : undefined,
+      order: data.order,
     })
     .eq("id", id)
     .select()
@@ -41,7 +42,6 @@ export async function updateLesson(
 
 export async function deleteLesson(id: string): Promise<void> {
   const { error } = await supabase.from("lessons").delete().eq("id", id);
-
   if (error) throw error;
 }
 
@@ -60,4 +60,3 @@ export async function reorderLessons(
 
   if (error) throw error;
 }
-
