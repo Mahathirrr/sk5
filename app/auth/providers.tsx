@@ -1,12 +1,10 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Github, Mail } from "lucide-react";
 
 export function AuthProviders() {
-  const router = useRouter();
   const supabase = createClientComponentClient();
 
   const handleGoogleSignIn = async () => {

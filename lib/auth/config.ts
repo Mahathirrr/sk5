@@ -1,30 +1,12 @@
+import { authProviders } from "./providers";
+import { signInCallback, sessionCallback } from "./callbacks";
+import { authPages } from "./pages";
+
 export const authConfig = {
-  providers: {
-    google: {
-      scopes: ["email", "profile"],
-    },
-    github: {
-      scopes: ["read:user", "user:email"],
-    },
-  },
+  providers: authProviders,
   callbacks: {
-    signIn: async ({ user, account }) => {
-      if (!user.email) {
-        return false;
-      }
-      return true;
-    },
-    session: async ({ session, user }) => {
-      if (session?.user) {
-        session.user.id = user.id;
-      }
-      return session;
-    },
+    signIn: signInCallback,
+    session: sessionCallback,
   },
-  pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signout",
-    error: "/auth/error",
-    verifyRequest: "/auth/verify",
-  },
+  pages: authPages,
 };

@@ -1,13 +1,48 @@
 export interface AuthUser {
-  id: string;
   email: string;
-  fullName: string | null;
-  avatarUrl: string | null;
-  role: "student" | "instructor";
+  [key: string]: any;
 }
 
-export interface AuthState {
-  user: AuthUser | null;
-  isLoading: boolean;
-  error: Error | null;
+export interface AuthAccount {
+  provider: string;
+  [key: string]: any;
+}
+
+export interface SignInParams {
+  user: AuthUser;
+  account: AuthAccount;
+}
+
+export interface SessionUser {
+  id?: string;
+  [key: string]: any;
+}
+
+export interface AuthSession {
+  user?: SessionUser;
+  [key: string]: any;
+}
+
+export interface SessionParams {
+  session: AuthSession;
+  user: {
+    id: string;
+    [key: string]: any;
+  };
+}
+
+export interface AuthProviders {
+  google: {
+    scopes: string[];
+  };
+  github: {
+    scopes: string[];
+  };
+}
+
+export interface AuthPages {
+  signIn: string;
+  signOut: string;
+  error: string;
+  verifyRequest: string;
 }
