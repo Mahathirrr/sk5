@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { BookOpenCheck } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function HeroSection() {
   return (
@@ -32,9 +33,11 @@ export function HeroSection() {
           </div>
           <div className="relative hidden lg:block">
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-primary/20 to-transparent" />
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80"
               alt="Students learning"
+              width={1771}
+              height={1000}
               className="rounded-3xl object-cover shadow-xl"
             />
           </div>

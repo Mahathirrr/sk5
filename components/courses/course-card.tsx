@@ -7,8 +7,9 @@ import {
 import { CourseWithInstructor } from "@/lib/courses/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, Users } from "lucide-react";
+import { Users } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface CourseCardProps {
   course: CourseWithInstructor;
@@ -20,11 +21,13 @@ export function CourseCard({ course }: CourseCardProps) {
       <Card className="h-full overflow-hidden transition-all hover:border-primary">
         <CardHeader className="p-0">
           <div className="aspect-video w-full overflow-hidden">
-            <img
+            <Image
               src={
                 course.thumbnail_url || "https://via.placeholder.com/640x360"
               }
               alt={course.title}
+              width={640}
+              height={360}
               className="h-full w-full object-cover transition-all hover:scale-105"
             />
           </div>

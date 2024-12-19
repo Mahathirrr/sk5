@@ -187,7 +187,7 @@ export function LessonManager({
                 ? {
                     title: editingLesson.title,
                     description: editingLesson.description,
-                    videoUrl: editingLesson.videoUrl,
+                    videoUrl: editingLesson.video_url,
                     duration: Math.floor(editingLesson.duration / 60),
                   }
                 : undefined

@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
-import { AuthState, AuthUser } from "./types";
+import { AuthState } from "./types";
 
-export const useAuth = () => {
+export function useAuth() {
   const [state, setState] = useState<AuthState>({
     user: null,
     isLoading: true,
@@ -15,9 +15,8 @@ export const useAuth = () => {
     // Get initial session
     const initAuth = async () => {
       try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
+        const { data: sessionData } = await supabase.auth.getSession();
+        const session = sessionData.session;
 
         if (session) {
           const { data: profile, error: profileError } = await supabase
@@ -140,4 +139,4 @@ export const useAuth = () => {
   }, []);
 
   return state;
-};
+}

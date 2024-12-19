@@ -6,15 +6,15 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export type Database = {
+export interface Database {
   public: {
     Tables: {
       users: {
         Row: {
           id: string;
           email: string;
-          full_name: string;
-          avatar_url: string;
+          full_name: string | null;
+          avatar_url: string | null;
           role: "student" | "instructor";
           created_at: string;
           updated_at: string;
@@ -47,10 +47,10 @@ export type Database = {
           price: number;
           category: string;
           difficulty: "beginner" | "intermediate" | "advanced";
-          thumbnail_url: string;
+          thumbnail_url: string | null;
+          student_count: number;
           created_at: string;
           updated_at: string;
-          student_count: number;
         };
         Insert: {
           id?: string;
@@ -60,10 +60,10 @@ export type Database = {
           price: number;
           category: string;
           difficulty: "beginner" | "intermediate" | "advanced";
-          thumbnail_url?: string;
+          thumbnail_url?: string | null;
+          student_count?: number;
           created_at?: string;
           updated_at?: string;
-          student_count?: number;
         };
         Update: {
           id?: string;
@@ -73,23 +73,23 @@ export type Database = {
           price?: number;
           category?: string;
           difficulty?: "beginner" | "intermediate" | "advanced";
-          thumbnail_url?: string;
+          thumbnail_url?: string | null;
+          student_count?: number;
           created_at?: string;
           updated_at?: string;
-          student_count?: number;
         };
       };
       lessons: {
         Row: {
           id: string;
-          courseId: string;
+          course_id: string;
           title: string;
           description: string;
-          videoUrl: string;
-          order: number;
+          video_url: string;
           duration: number;
-          createdAt: string;
-          updatedAt: string;
+          order: number;
+          created_at: string;
+          updated_at: string;
         };
         Insert: {
           id?: string;
@@ -97,10 +97,10 @@ export type Database = {
           title: string;
           description: string;
           video_url: string;
-          order: number;
           duration: number;
-          createdAt?: string;
-          updatedAt?: string;
+          order: number;
+          created_at?: string;
+          updated_at?: string;
         };
         Update: {
           id?: string;
@@ -108,10 +108,10 @@ export type Database = {
           title?: string;
           description?: string;
           video_url?: string;
-          order?: number;
           duration?: number;
-          createdAt?: string;
-          updatedAt?: string;
+          order?: number;
+          created_at?: string;
+          updated_at?: string;
         };
       };
       enrollments: {
@@ -274,6 +274,79 @@ export type Database = {
           updated_at?: string;
         };
       };
+      lesson_progress: {
+        Row: {
+          id: string;
+          enrollment_id: string;
+          lesson_id: string;
+          progress: number;
+          watch_time: number;
+          completed: boolean;
+          completed_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          enrollment_id: string;
+          lesson_id: string;
+          progress: number;
+          watch_time: number;
+          completed: boolean;
+          completed_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          enrollment_id?: string;
+          lesson_id?: string;
+          progress?: number;
+          watch_time?: number;
+          completed?: boolean;
+          completed_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      payments: {
+        Row: {
+          id: string;
+          user_id: string;
+          course_id: string;
+          amount: number;
+          status: "pending" | "success" | "failed" | "expired" | "refunded";
+          payment_token: string;
+          payment_url: string;
+          metadata: Json;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          course_id: string;
+          amount: number;
+          status?: "pending" | "success" | "failed" | "expired" | "refunded";
+          payment_token: string;
+          payment_url: string;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          course_id?: string;
+          amount?: number;
+          status?: "pending" | "success" | "failed" | "expired" | "refunded";
+          payment_token?: string;
+          payment_url?: string;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
     };
     Views: {
       [_ in never]: never;
@@ -285,4 +358,4 @@ export type Database = {
       [_ in never]: never;
     };
   };
-};
+}

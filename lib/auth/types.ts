@@ -1,14 +1,13 @@
-export type AuthUser = {
+export interface AuthUser {
   id: string;
   email: string;
   fullName: string | null;
   avatarUrl: string | null;
   role: "student" | "instructor";
-};
+}
 
-export type AuthState = {
+export interface AuthState {
   user: AuthUser | null;
   isLoading: boolean;
   error: Error | null;
-};
-
+}

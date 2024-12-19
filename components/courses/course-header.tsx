@@ -2,6 +2,7 @@ import { CourseDetails } from "@/lib/courses/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Users, Clock } from "lucide-react";
+import Image from "next/image";
 
 interface CourseHeaderProps {
   course: CourseDetails;
@@ -71,11 +72,13 @@ export function CourseHeader({ course }: CourseHeaderProps) {
             </div>
           </div>
           <div className="aspect-video overflow-hidden rounded-lg">
-            <img
+            <Image
               src={
                 course.thumbnail_url || "https://via.placeholder.com/640x360"
               }
               alt={course.title}
+              width={640}
+              height={360}
               className="h-full w-full object-cover"
             />
           </div>

@@ -52,8 +52,8 @@ export async function getArticleBySlug(
 export async function createArticle(
   data: CreateArticleData,
 ): Promise<ArticleWithAuthor> {
-  const { data: session } = await supabase.auth.getSession();
-  if (!session?.user) throw new Error("User not authenticated");
+  const { data: sessionData } = await supabase.auth.getSession();
+  if (!sessionData.session?.user) throw new Error("User not authenticated");
 
   const { data: article, error } = await supabase
     .from("articles")
@@ -65,7 +65,7 @@ export async function createArticle(
       cover_image: data.coverImage,
       published: data.published,
       tags: data.tags,
-      author_id: session.user.id,
+      author_id: sessionData.session.user.id,
     })
     .select(
       `
@@ -117,6 +117,5 @@ export async function updateArticle(
 
 export async function deleteArticle(id: string): Promise<void> {
   const { error } = await supabase.from("articles").delete().eq("id", id);
-
   if (error) throw error;
 }

@@ -5,10 +5,10 @@ export async function createLesson(data: CreateLessonData): Promise<Lesson> {
   const { data: lesson, error } = await supabase
     .from("lessons")
     .insert({
-      courseId: data.courseId,
+      course_id: data.courseId,
       title: data.title,
       description: data.description,
-      videoUrl: data.videoUrl,
+      video_url: data.videoUrl,
       duration: data.duration * 60, // Convert minutes to seconds
       order: data.order,
     })
@@ -23,15 +23,20 @@ export async function updateLesson(
   id: string,
   data: Partial<CreateLessonData>,
 ): Promise<Lesson> {
+  const updates: any = {
+    title: data.title,
+    description: data.description,
+    video_url: data.videoUrl,
+    order: data.order,
+  };
+
+  if (data.duration !== undefined) {
+    updates.duration = data.duration * 60;
+  }
+
   const { data: lesson, error } = await supabase
     .from("lessons")
-    .update({
-      title: data.title,
-      description: data.description,
-      videoUrl: data.videoUrl,
-      duration: data.duration ? data.duration * 60 : undefined,
-      order: data.order,
-    })
+    .update(updates)
     .eq("id", id)
     .select()
     .single();
