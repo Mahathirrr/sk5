@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
@@ -23,7 +24,8 @@ export default function RootLayout({
       <body className={dmSans.className}>
         <div className="relative min-h-screen bg-background">
           <Navbar />
-          <div className="container mx-auto px-4">{children}</div>
+          <main className="container mx-auto px-4">{children}</main>
+          <Footer />
         </div>
       </body>
     </html>

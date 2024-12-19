@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getCourseById } from "@/lib/courses/api";
 import { CourseHeader } from "@/components/courses/course-header";
 import { CourseContent } from "@/components/courses/course-content";
@@ -49,4 +51,3 @@ export default async function CoursePage({ params }: CoursePageProps) {
     </div>
   );
 }
-

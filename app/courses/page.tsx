@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getCourses } from "@/lib/courses/api";
 import { CourseCard } from "@/components/courses/course-card";
 
@@ -21,4 +23,3 @@ export default async function CoursesPage() {
     </div>
   );
 }
-
