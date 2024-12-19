@@ -14,6 +14,7 @@ import { formatDistanceToNow } from "date-fns";
 import { id } from "date-fns/locale";
 import { CreateDiscussionDialog } from "./create-discussion-dialog";
 import { Discussion } from "@/lib/discussions/types";
+import { useAuth } from "@/lib/auth/hooks";
 
 interface DiscussionListProps {
   courseId: string;
@@ -27,6 +28,7 @@ export function DiscussionList({
   onDiscussionCreated,
 }: DiscussionListProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <div className="space-y-4">
@@ -44,7 +46,7 @@ export function DiscussionList({
             <CardHeader>
               <div className="flex items-center gap-4">
                 <Avatar>
-                  <AvatarImage src={discussion.user.avatar_url} />
+                  <AvatarImage src={discussion.user.avatar_url || undefined} />
                   <AvatarFallback>
                     {discussion.user.full_name?.charAt(0)}
                   </AvatarFallback>
@@ -83,4 +85,3 @@ export function DiscussionList({
     </div>
   );
 }
-

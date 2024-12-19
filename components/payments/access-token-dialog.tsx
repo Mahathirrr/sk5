@@ -22,8 +22,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { useAccessToken } from "@/lib/access-tokens/api";
+import { validateAccessToken, useAccessToken } from "@/lib/access-tokens/api";
 import { Loader2 } from "lucide-react";
+import { useAuth } from "@/lib/auth/hooks";
 
 const formSchema = z.object({
   token: z.string().min(1, "Token tidak boleh kosong"),
@@ -44,6 +45,8 @@ export function AccessTokenDialog({
 }: AccessTokenDialogProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,11 +55,32 @@ export function AccessTokenDialog({
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (!user) {
+      toast({
+        title: "Please login",
+        description: "You need to be logged in to use an access token",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       setIsLoading(true);
+      const token = await validateAccessToken(values.token);
+
+      if (!token) {
+        toast({
+          title: "Token tidak valid",
+          description:
+            "Token yang Anda masukkan tidak valid atau sudah digunakan.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const success = await useAccessToken({
         token: values.token,
-        courseId,
+        userId: user.id,
       });
 
       if (success) {
@@ -113,9 +137,7 @@ export function AccessTokenDialog({
             />
 
             <Button type="submit" disabled={isLoading} className="w-full">
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : null}
+              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {isLoading ? "Memproses..." : "Gunakan Token"}
             </Button>
           </form>
@@ -124,4 +146,3 @@ export function AccessTokenDialog({
     </Dialog>
   );
 }
-

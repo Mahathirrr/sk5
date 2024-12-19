@@ -12,6 +12,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { generateAccessToken } from "@/lib/access-tokens/api";
 import { Loader2, Copy, Check } from "lucide-react";
+import { useAuth } from "@/lib/auth/hooks";
 
 interface TokenManagerProps {
   courseId: string;
@@ -22,12 +23,23 @@ export function TokenManager({ courseId }: TokenManagerProps) {
   const [token, setToken] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const handleGenerateToken = async () => {
+    if (!user) {
+      toast({
+        title: "Please login",
+        description: "You need to be logged in to generate tokens",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       setIsGenerating(true);
       const newToken = await generateAccessToken({
         courseId,
+        createdBy: user.id,
       });
 
       setToken(newToken);
@@ -91,13 +103,10 @@ export function TokenManager({ courseId }: TokenManagerProps) {
           disabled={isGenerating}
           className="w-full"
         >
-          {isGenerating ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          ) : null}
+          {isGenerating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isGenerating ? "Membuat Token..." : "Generate Token Baru"}
         </Button>
       </CardContent>
     </Card>
   );
 }
-

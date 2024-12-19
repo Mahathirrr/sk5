@@ -46,10 +46,10 @@ export async function getInstructorStats(
     totalCourses: totalCourses || 0,
     totalRevenue,
     recentEnrollments:
-      recentEnrollments?.map((enrollment) => ({
+      recentEnrollments?.map((enrollment: any) => ({
         courseId: enrollment.course_id,
-        courseName: enrollment.course.title,
-        studentName: enrollment.user.full_name,
+        courseName: enrollment.course?.title || "Unknown Course",
+        studentName: enrollment.user?.full_name || "Unknown Student",
         enrolledAt: enrollment.created_at,
       })) || [],
   };
@@ -93,4 +93,3 @@ export async function getCourseStats(
     };
   });
 }
-

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { parseVideoUrl, getEmbedUrl } from "@/lib/videos/validation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
@@ -10,8 +9,6 @@ interface VideoPreviewProps {
 }
 
 export function VideoPreview({ url }: VideoPreviewProps) {
-  const [error, setError] = useState<string | null>(null);
-
   if (!url) {
     return null;
   }

@@ -112,12 +112,11 @@ export async function getStudentProgress(
 
   if (error) throw error;
 
-  return data.map((enrollment) => ({
+  return data.map((enrollment: any) => ({
     id: enrollment.id,
-    name: enrollment.user.full_name,
-    avatarUrl: enrollment.user.avatar_url,
+    name: enrollment.user?.full_name || "Unknown",
+    avatarUrl: enrollment.user?.avatar_url,
     progress: enrollment.progress,
     lastActive: enrollment.last_active_at,
   }));
 }
-

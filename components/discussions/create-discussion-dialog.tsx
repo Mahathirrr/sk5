@@ -8,11 +8,9 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -23,18 +21,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { createDiscussion } from "@/lib/discussions/api";
+import { Loader2 } from "lucide-react";
+import { useAuth } from "@/lib/auth/hooks";
 
 const formSchema = z.object({
-  title: z
-    .string()
-    .min(5, "Judul minimal 5 karakter")
-    .max(100, "Judul maksimal 100 karakter"),
-  content: z
-    .string()
-    .min(10, "Konten minimal 10 karakter")
-    .max(1000, "Konten maksimal 1000 karakter"),
+  title: z.string().min(5, "Judul minimal 5 karakter"),
+  content: z.string().min(10, "Konten minimal 10 karakter"),
 });
 
 interface CreateDiscussionDialogProps {
@@ -52,6 +47,8 @@ export function CreateDiscussionDialog({
 }: CreateDiscussionDialogProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -61,10 +58,20 @@ export function CreateDiscussionDialog({
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (!user) {
+      toast({
+        title: "Please login",
+        description: "You need to be logged in to create a discussion",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       setIsLoading(true);
       await createDiscussion({
         courseId,
+        userId: user.id,
         title: values.title,
         content: values.content,
       });
@@ -133,7 +140,7 @@ export function CreateDiscussionDialog({
               )}
             />
 
-            <DialogFooter>
+            <div className="flex justify-end gap-4">
               <Button
                 type="button"
                 variant="outline"
@@ -142,13 +149,13 @@ export function CreateDiscussionDialog({
                 Batal
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Memuat..." : "Publikasikan"}
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Publikasikan
               </Button>
-            </DialogFooter>
+            </div>
           </form>
         </Form>
       </DialogContent>
     </Dialog>
   );
 }
-

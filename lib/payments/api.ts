@@ -2,7 +2,6 @@ import { supabase } from "@/lib/supabase/client";
 import { Payment, CreatePaymentData, PaymentStatus } from "./types";
 
 const MIDTRANS_SERVER_KEY = process.env.MIDTRANS_SERVER_KEY;
-const MIDTRANS_CLIENT_KEY = process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY;
 
 export async function createPayment(data: CreatePaymentData): Promise<Payment> {
   // Generate unique order ID
@@ -93,4 +92,3 @@ export async function getPaymentByOrderId(orderId: string): Promise<Payment> {
   if (error) throw error;
   return payment;
 }
-

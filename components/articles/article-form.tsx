@@ -15,9 +15,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import { ImageUpload } from "@/components/shared/image-upload";
 import { ArticleWithAuthor } from "@/lib/articles/types";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
 const formSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
@@ -31,7 +34,7 @@ const formSchema = z.object({
 
 interface ArticleFormProps {
   initialData?: ArticleWithAuthor;
-  onSubmit: (data: z.infer<typeof formSchema>) => Promise<void>;
+  onSubmit: (data: z.infer<typeof formSchema>) => void;
   isLoading?: boolean;
 }
 
@@ -69,6 +72,13 @@ export function ArticleForm({
       "tags",
       currentTags.filter((t) => t !== tag),
     );
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleTagAdd();
+    }
   };
 
   return (
@@ -144,9 +154,11 @@ export function ArticleForm({
                     type="thumbnail"
                   />
                   {field.value && (
-                    <img
+                    <Image
                       src={field.value}
                       alt="Cover preview"
+                      width={640}
+                      height={360}
                       className="rounded-lg"
                     />
                   )}
@@ -169,7 +181,7 @@ export function ArticleForm({
                     <Input
                       value={tagInput}
                       onChange={(e) => setTagInput(e.target.value)}
-                      onKeyPress={(e) => e.key === "Enter" && handleTagAdd()}
+                      onKeyDown={handleKeyDown}
                       placeholder="Add a tag"
                     />
                     <Button type="button" onClick={handleTagAdd}>

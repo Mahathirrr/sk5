@@ -1,30 +1,26 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useToast } from '@/components/ui/use-toast';
-import {
-  DragDropContext,
-  Droppable,
-  DropResult,
-} from '@hello-pangea/dnd';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Lesson } from '@/lib/courses/types';
+} from "@/components/ui/dialog";
+import { Lesson } from "@/lib/courses/types";
 import {
   createLesson,
   updateLesson,
   deleteLesson,
   reorderLessons,
-} from '@/lib/lessons/api';
-import { Plus, Loader2 } from 'lucide-react';
-import { LessonListItem } from './lesson-list';
-import { LessonForm } from './lesson-form';
-import { z } from 'zod';
+} from "@/lib/lessons/api";
+import { Plus } from "lucide-react";
+import { LessonListItem } from "./lesson-list";
+import { LessonForm } from "./lesson-form";
+import { z } from "zod";
 
 interface LessonManagerProps {
   courseId: string;
@@ -40,7 +36,10 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export function LessonManager({ courseId, lessons: initialLessons }: LessonManagerProps) {
+export function LessonManager({
+  courseId,
+  lessons: initialLessons,
+}: LessonManagerProps) {
   const [lessons, setLessons] = useState<Lesson[]>(initialLessons);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingLesson, setEditingLesson] = useState<Lesson | null>(null);
@@ -56,12 +55,12 @@ export function LessonManager({ courseId, lessons: initialLessons }: LessonManag
           courseId,
           order: editingLesson.order,
         });
-        setLessons(lessons.map((l) => 
-          l.id === updatedLesson.id ? updatedLesson : l
-        ));
+        setLessons(
+          lessons.map((l) => (l.id === updatedLesson.id ? updatedLesson : l)),
+        );
         toast({
-          title: 'Lesson updated',
-          description: 'The lesson has been updated successfully.',
+          title: "Lesson updated",
+          description: "The lesson has been updated successfully.",
         });
       } else {
         const newLesson = await createLesson({
@@ -71,17 +70,17 @@ export function LessonManager({ courseId, lessons: initialLessons }: LessonManag
         });
         setLessons([...lessons, newLesson]);
         toast({
-          title: 'Lesson created',
-          description: 'The new lesson has been added to the course.',
+          title: "Lesson created",
+          description: "The new lesson has been added to the course.",
         });
       }
       setIsDialogOpen(false);
       setEditingLesson(null);
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'There was an error saving the lesson.',
-        variant: 'destructive',
+        title: "Error",
+        description: "There was an error saving the lesson.",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -89,7 +88,10 @@ export function LessonManager({ courseId, lessons: initialLessons }: LessonManag
   };
 
   const handleEdit = (lesson: Lesson) => {
-    setEditingLesson(lesson);
+    setEditingLesson({
+      ...lesson,
+      videoUrl: lesson.video_url,
+    });
     setIsDialogOpen(true);
   };
 
@@ -98,14 +100,14 @@ export function LessonManager({ courseId, lessons: initialLessons }: LessonManag
       await deleteLesson(lessonId);
       setLessons(lessons.filter((l) => l.id !== lessonId));
       toast({
-        title: 'Lesson deleted',
-        description: 'The lesson has been removed from the course.',
+        title: "Lesson deleted",
+        description: "The lesson has been removed from the course.",
       });
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'There was an error deleting the lesson.',
-        variant: 'destructive',
+        title: "Error",
+        description: "There was an error deleting the lesson.",
+        variant: "destructive",
       });
     }
   };
@@ -122,17 +124,17 @@ export function LessonManager({ courseId, lessons: initialLessons }: LessonManag
     try {
       await reorderLessons(
         courseId,
-        items.map((lesson) => lesson.id)
+        items.map((lesson) => lesson.id),
       );
       toast({
-        title: 'Order updated',
-        description: 'The lesson order has been updated.',
+        title: "Order updated",
+        description: "The lesson order has been updated.",
       });
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'There was an error updating the lesson order.',
-        variant: 'destructive',
+        title: "Error",
+        description: "There was an error updating the lesson order.",
+        variant: "destructive",
       });
     }
   };
@@ -179,11 +181,20 @@ export function LessonManager({ courseId, lessons: initialLessons }: LessonManag
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {editingLesson ? 'Edit Lesson' : 'Add New Lesson'}
+              {editingLesson ? "Edit Lesson" : "Add New Lesson"}
             </DialogTitle>
           </DialogHeader>
           <LessonForm
-            initialData={editingLesson || undefined}
+            initialData={
+              editingLesson
+                ? {
+                    title: editingLesson.title,
+                    description: editingLesson.description,
+                    videoUrl: editingLesson.videoUrl,
+                    duration: Math.floor(editingLesson.duration / 60),
+                  }
+                : undefined
+            }
             onSubmit={handleSubmit}
             onCancel={() => setIsDialogOpen(false)}
             isLoading={isLoading}
@@ -193,3 +204,4 @@ export function LessonManager({ courseId, lessons: initialLessons }: LessonManag
     </div>
   );
 }
+

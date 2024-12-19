@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ArticleCardProps {
   article: ArticleWithAuthor;
@@ -24,9 +25,11 @@ export function ArticleCard({ article }: ArticleCardProps) {
       <Card className="h-full overflow-hidden transition-all hover:border-primary">
         <CardHeader className="p-0">
           <div className="aspect-video w-full overflow-hidden">
-            <img
+            <Image
               src={article.cover_image || "https://via.placeholder.com/640x360"}
               alt={article.title}
+              width={640}
+              height={360}
               className="h-full w-full object-cover transition-all hover:scale-105"
             />
           </div>

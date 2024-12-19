@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { createPayment } from "@/lib/payments/api";
 import { Loader2 } from "lucide-react";
+import { useAuth } from "@/lib/auth/hooks";
 
 interface PaymentDialogProps {
   courseId: string;
@@ -28,16 +29,26 @@ export function PaymentDialog({
   price,
   open,
   onOpenChange,
-  onSuccess,
 }: PaymentDialogProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const handlePayment = async () => {
+    if (!user) {
+      toast({
+        title: "Please login",
+        description: "You need to be logged in to make a payment",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       setIsLoading(true);
       const payment = await createPayment({
         courseId,
+        userId: user.id,
         amount: price,
       });
 
@@ -79,9 +90,7 @@ export function PaymentDialog({
             disabled={isLoading}
             className="w-full"
           >
-            {isLoading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : null}
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {isLoading ? "Memproses..." : "Bayar Sekarang"}
           </Button>
         </div>
@@ -89,4 +98,3 @@ export function PaymentDialog({
     </Dialog>
   );
 }
-

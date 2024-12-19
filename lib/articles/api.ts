@@ -52,8 +52,8 @@ export async function getArticleBySlug(
 export async function createArticle(
   data: CreateArticleData,
 ): Promise<ArticleWithAuthor> {
-  const { data: user } = await supabase.auth.getUser();
-  if (!user) throw new Error("User not authenticated");
+  const { data: session } = await supabase.auth.getSession();
+  if (!session?.user) throw new Error("User not authenticated");
 
   const { data: article, error } = await supabase
     .from("articles")
@@ -65,7 +65,7 @@ export async function createArticle(
       cover_image: data.coverImage,
       published: data.published,
       tags: data.tags,
-      author_id: user.user.id,
+      author_id: session.user.id,
     })
     .select(
       `

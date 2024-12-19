@@ -9,6 +9,7 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 interface ArticlePageProps {
   params: {
@@ -27,9 +28,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     <div className="container max-w-4xl py-8">
       <article className="prose prose-neutral dark:prose-invert max-w-none">
         <div className="mb-8">
-          <img
+          <Image
             src={article.cover_image}
             alt={article.title}
+            width={1200}
+            height={675}
             className="aspect-video w-full rounded-lg object-cover"
           />
         </div>
@@ -73,7 +76,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm],
-              rehypePlugins: [rehypeHighlight, rehypeSlug],
+              rehypePlugins: [rehypeHighlight as any, rehypeSlug as any],
             },
           }}
         />
