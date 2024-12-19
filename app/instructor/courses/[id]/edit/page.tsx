@@ -1,8 +1,8 @@
-import { getCourseById } from '@/lib/courses/api';
-import { EditCourseForm } from '@/components/instructor/edit-course-form';
-import { LessonManager } from '@/components/instructor/lesson-manager';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { notFound } from 'next/navigation';
+import { getCourseById } from "@/lib/courses/api";
+import { EditCourseForm } from "@/components/instructor/edit-course-form";
+import { LessonManager } from "@/components/instructor/lesson-manager";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { notFound } from "next/navigation";
 
 interface EditCoursePageProps {
   params: {
@@ -20,7 +20,7 @@ export default async function EditCoursePage({ params }: EditCoursePageProps) {
   return (
     <div className="container py-8">
       <h1 className="mb-8 text-3xl font-bold">Edit Kursus</h1>
-      
+
       <Tabs defaultValue="details" className="space-y-6">
         <TabsList>
           <TabsTrigger value="details">Detail Kursus</TabsTrigger>
@@ -32,9 +32,10 @@ export default async function EditCoursePage({ params }: EditCoursePageProps) {
         </TabsContent>
 
         <TabsContent value="lessons">
-          <LessonManager courseId={course.id} lessons={course.lessons} />
+          <LessonManager courseId={course.id} initialLessons={course.lessons} />
         </TabsContent>
       </Tabs>
     </div>
   );
 }
+

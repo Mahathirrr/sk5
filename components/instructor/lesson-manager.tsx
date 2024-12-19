@@ -24,7 +24,7 @@ import { z } from "zod";
 
 interface LessonManagerProps {
   courseId: string;
-  lessons: Lesson[];
+  initialLessons: Lesson[];
 }
 
 const formSchema = z.object({
@@ -38,7 +38,7 @@ type FormData = z.infer<typeof formSchema>;
 
 export function LessonManager({
   courseId,
-  lessons: initialLessons,
+  initialLessons,
 }: LessonManagerProps) {
   const [lessons, setLessons] = useState<Lesson[]>(initialLessons);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -119,10 +119,7 @@ export function LessonManager({
     setLessons(items);
 
     try {
-      await reorderLessons(
-        courseId,
-        items.map((lesson) => lesson.id),
-      );
+      await reorderLessons(items.map((lesson) => lesson.id));
       toast({
         title: "Order updated",
         description: "The lesson order has been updated.",
@@ -201,4 +198,3 @@ export function LessonManager({
     </div>
   );
 }
-

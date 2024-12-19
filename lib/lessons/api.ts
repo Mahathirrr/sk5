@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase/client";
 import { Lesson, CreateLessonData } from "./types";
 
+// Create a new lesson
 export async function createLesson(data: CreateLessonData): Promise<Lesson> {
   const { data: lesson, error } = await supabase
     .from("lessons")
@@ -19,6 +20,7 @@ export async function createLesson(data: CreateLessonData): Promise<Lesson> {
   return lesson;
 }
 
+// Update an existing lesson
 export async function updateLesson(
   id: string,
   data: Partial<CreateLessonData>,
@@ -45,11 +47,13 @@ export async function updateLesson(
   return lesson;
 }
 
+// Delete a lesson
 export async function deleteLesson(id: string): Promise<void> {
   const { error } = await supabase.from("lessons").delete().eq("id", id);
   if (error) throw error;
 }
 
+// Reorder lessons
 export async function reorderLessons(lessonIds: string[]): Promise<void> {
   const updates = lessonIds.map((id, index) => ({
     id,
