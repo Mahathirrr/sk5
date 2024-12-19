@@ -5,7 +5,7 @@ import { NotificationList } from "@/components/notifications/notification-list";
 import { useAuth } from "@/lib/auth/hooks";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { BookOpen, GraduationCap } from "lucide-react";
+import { BookOpen, GraduationCap, FileText } from "lucide-react";
 
 export const Navbar = () => {
   const { user } = useAuth();
@@ -22,6 +22,12 @@ export const Navbar = () => {
               <Button variant="ghost" className="gap-2 text-muted-foreground">
                 <BookOpen className="h-4 w-4" />
                 Kursus
+              </Button>
+            </Link>
+            <Link href="/articles">
+              <Button variant="ghost" className="gap-2 text-muted-foreground">
+                <FileText className="h-4 w-4" />
+                Artikel
               </Button>
             </Link>
             {user?.role === "instructor" && (

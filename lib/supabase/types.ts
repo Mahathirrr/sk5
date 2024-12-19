@@ -204,6 +204,47 @@ export type Database = {
           updated_at?: string;
         };
       };
+      articles: {
+        Row: {
+          id: string;
+          title: string;
+          slug: string;
+          excerpt: string;
+          content: string;
+          cover_image: string;
+          published: boolean;
+          tags: string[];
+          author_id: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          slug: string;
+          excerpt: string;
+          content: string;
+          cover_image: string;
+          published?: boolean;
+          tags?: string[];
+          author_id: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          title?: string;
+          slug?: string;
+          excerpt?: string;
+          content?: string;
+          cover_image?: string;
+          published?: boolean;
+          tags?: string[];
+          author_id?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
       comments: {
         Row: {
           id: string;
@@ -245,4 +286,3 @@ export type Database = {
     };
   };
 };
-

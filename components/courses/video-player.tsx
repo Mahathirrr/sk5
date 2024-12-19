@@ -1,10 +1,18 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import { Play, Pause, Volume2, VolumeX, Maximize, SkipForward, SkipBack } from 'lucide-react';
-import { Slider } from '@/components/ui/slider';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { useState, useRef, useEffect } from "react";
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Maximize,
+  SkipForward,
+  SkipBack,
+} from "lucide-react";
+import { Slider } from "@/components/ui/slider";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface VideoPlayerProps {
   videoUrl: string;
@@ -12,7 +20,11 @@ interface VideoPlayerProps {
   onComplete: () => void;
 }
 
-export function VideoPlayer({ videoUrl, onProgress, onComplete }: VideoPlayerProps) {
+export function VideoPlayer({
+  videoUrl,
+  onProgress,
+  onComplete,
+}: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -28,7 +40,7 @@ export function VideoPlayer({ videoUrl, onProgress, onComplete }: VideoPlayerPro
     const handleTimeUpdate = () => {
       setCurrentTime(video.currentTime);
       onProgress((video.currentTime / video.duration) * 100);
-      
+
       if (video.currentTime === video.duration) {
         onComplete();
       }
@@ -38,12 +50,12 @@ export function VideoPlayer({ videoUrl, onProgress, onComplete }: VideoPlayerPro
       setDuration(video.duration);
     };
 
-    video.addEventListener('timeupdate', handleTimeUpdate);
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
 
     return () => {
-      video.removeEventListener('timeupdate', handleTimeUpdate);
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
   }, [onProgress, onComplete]);
 
@@ -102,7 +114,7 @@ export function VideoPlayer({ videoUrl, onProgress, onComplete }: VideoPlayerPro
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
-    return \`\${minutes}:\${remainingSeconds.toString().padStart(2, '0')}\`;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
   const skip = (seconds: number) => {

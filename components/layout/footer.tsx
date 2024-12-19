@@ -1,12 +1,7 @@
 import { Logo } from "@/components/ui/logo";
 import Link from "next/link";
-import {
-  Instagram,
-  Github,
-  MessageCircle,
-  Phone,
-  ChevronRight,
-} from "lucide-react";
+import { Instagram, Github, ChevronRight } from "lucide-react";
+import { FaDiscord, FaWhatsapp } from "react-icons/fa";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -23,17 +18,17 @@ export function Footer() {
         </p>
 
         {/* Links */}
-        <div className="flex gap-6 text-sm">
+        <div className="flex gap-3 text-sm">
           <Link
             href="/privacy"
-            className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+            className="flex items-center text-muted-foreground transition-colors hover:text-primary"
           >
             <span>Kebijakan Privasi</span>
             <ChevronRight className="h-4 w-4" />
           </Link>
           <Link
             href="/terms"
-            className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+            className="flex items-center text-muted-foreground transition-colors hover:text-primary"
           >
             <span>Syarat & Ketentuan</span>
             <ChevronRight className="h-4 w-4" />
@@ -64,7 +59,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors"
           >
-            <MessageCircle className="h-6 w-6" />
+            <FaDiscord className="h-6 w-6" /> {/* Gunakan logo Discord */}
           </Link>
           <Link
             href="https://wa.me/+6281397181617"
@@ -72,7 +67,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors"
           >
-            <Phone className="h-6 w-6" />
+            <FaWhatsapp className="h-6 w-6" /> {/* Gunakan logo WhatsApp */}
           </Link>
         </div>
       </div>

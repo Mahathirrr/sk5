@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Navbar />
           <main className="container mx-auto px-4">{children}</main>
           <Footer />
+          <Toaster />
         </div>
       </body>
     </html>

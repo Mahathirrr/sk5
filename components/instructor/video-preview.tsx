@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { parseVideoUrl, getEmbedUrl } from '@/lib/videos/validation';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertCircle } from 'lucide-react';
+import { useState } from "react";
+import { parseVideoUrl, getEmbedUrl } from "@/lib/videos/validation";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 interface VideoPreviewProps {
   url: string;
@@ -23,7 +23,8 @@ export function VideoPreview({ url }: VideoPreviewProps) {
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
         <AlertDescription>
-          Invalid video URL. Please enter a valid YouTube or Google Drive video URL.
+          Invalid video URL. Please enter a valid YouTube or Google Drive video
+          URL.
         </AlertDescription>
       </Alert>
     );
@@ -40,3 +41,4 @@ export function VideoPreview({ url }: VideoPreviewProps) {
     </div>
   );
 }
+
