@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
-import { uploadImage } from '@/lib/storage/api';
-import { Upload, Loader2 } from 'lucide-react';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import { uploadImage } from "@/lib/storage/api";
+import { Upload, Loader2 } from "lucide-react";
 
 interface ImageUploadProps {
   onUploadComplete: (url: string) => void;
-  type: 'thumbnail' | 'avatar';
+  type: "thumbnails" | "avatars";
   className?: string;
 }
 
@@ -26,41 +26,45 @@ export function ImageUpload({
     if (!file) return;
 
     // Validate file type
-    if (!file.type.startsWith('image/')) {
+    if (!file.type.startsWith("image/")) {
       toast({
-        title: 'Invalid file type',
-        description: 'Please upload an image file',
-        variant: 'destructive',
+        title: "Invalid file type",
+        description: "Please upload an image file (JPG, PNG, or GIF)",
+        variant: "destructive",
       });
       return;
     }
 
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
       toast({
-        title: 'File too large',
-        description: 'Please upload an image smaller than 5MB',
-        variant: 'destructive',
+        title: "File too large",
+        description: "Please upload an image smaller than 2MB",
+        variant: "destructive",
       });
       return;
     }
 
     try {
       setIsUploading(true);
-      const url = await uploadImage(file, type === 'thumbnail' ? 'thumbnails' : 'avatars');
+      const url = await uploadImage(file, type);
       onUploadComplete(url);
       toast({
-        title: 'Upload successful',
-        description: 'Your image has been uploaded',
+        title: "Upload successful",
+        description: "Your image has been uploaded successfully",
       });
     } catch (error) {
+      console.error("Upload error:", error);
       toast({
-        title: 'Upload failed',
-        description: 'There was an error uploading your image',
-        variant: 'destructive',
+        title: "Upload failed",
+        description:
+          "There was an error uploading your image. Please try again.",
+        variant: "destructive",
       });
     } finally {
       setIsUploading(false);
+      // Reset input value to allow uploading the same file again
+      e.target.value = "";
     }
   };
 
@@ -68,7 +72,7 @@ export function ImageUpload({
     <div className={className}>
       <Input
         type="file"
-        accept="image/*"
+        accept="image/jpeg,image/png,image/gif"
         onChange={handleFileChange}
         disabled={isUploading}
         className="hidden"
@@ -88,10 +92,11 @@ export function ImageUpload({
             ) : (
               <Upload className="mr-2 h-4 w-4" />
             )}
-            {isUploading ? 'Uploading...' : 'Upload Image'}
+            {isUploading ? "Uploading..." : "Upload Image"}
           </span>
         </Button>
       </label>
     </div>
   );
 }
+
