@@ -12,12 +12,7 @@ export async function middleware(req: NextRequest) {
   } = await supabase.auth.getSession();
 
   // Protected routes that require authentication
-  const protectedRoutes = [
-    "/instructor",
-    "/courses/enrolled",
-    "/profile",
-    "/certificates",
-  ];
+  const protectedRoutes = ["/courses/enrolled", "/profile", "/certificates"];
 
   // Check if the current route is protected
   const isProtectedRoute = protectedRoutes.some((route) =>
@@ -30,19 +25,18 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  // Instructor routes protection
-  if (req.nextUrl.pathname.startsWith("/instructor")) {
-    // Get user role from database
-    const { data: userData } = await supabase
-      .from("users")
-      .select("role")
-      .eq("id", session?.user?.id)
-      .single();
+  // Note: Instructor route protection is temporarily disabled for development
+  // if (req.nextUrl.pathname.startsWith("/instructor")) {
+  //   const { data: userData } = await supabase
+  //     .from("users")
+  //     .select("role")
+  //     .eq("id", session?.user?.id)
+  //     .single();
 
-    if (!userData || userData.role !== "instructor") {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-  }
+  //   if (!userData || userData.role !== "instructor") {
+  //     return NextResponse.redirect(new URL("/", req.url));
+  //   }
+  // }
 
   return res;
 }

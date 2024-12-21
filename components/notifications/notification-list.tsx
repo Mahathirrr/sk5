@@ -17,7 +17,7 @@ export function NotificationList() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="relative">
-          <Bell className="h-5 w-5" />
+          <Bell className="h-5 w-5 text-foreground" />
           {unreadCount > 0 && (
             <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">
               {unreadCount}
@@ -25,7 +25,10 @@ export function NotificationList() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80">
+      <DropdownMenuContent
+        align="end"
+        className="w-80 bg-card text-card-foreground shadow-lg rounded-lg border border-border"
+      >
         {notifications.length === 0 ? (
           <div className="p-4 text-center text-sm text-muted-foreground">
             Tidak ada notifikasi

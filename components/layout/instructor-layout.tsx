@@ -1,8 +1,5 @@
 "use client";
 
-import { useAuth } from "@/lib/auth/hooks";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
@@ -18,19 +15,7 @@ interface InstructorLayoutProps {
 }
 
 export function InstructorLayout({ children }: InstructorLayoutProps) {
-  const { user, isLoading } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isLoading && (!user || user.role !== "instructor")) {
-      router.push("/");
-    }
-  }, [user, isLoading, router]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
+  // Hapus logika otorisasi dan loading
   const navigation = [
     {
       name: "Dashboard",
@@ -61,7 +46,6 @@ export function InstructorLayout({ children }: InstructorLayoutProps) {
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)]">
-      {/* Sidebar */}
       <div className="hidden w-64 flex-shrink-0 border-r bg-card lg:block">
         <div className="flex h-full flex-col">
           <div className="flex-1 space-y-1 p-4">
@@ -83,7 +67,6 @@ export function InstructorLayout({ children }: InstructorLayoutProps) {
         </div>
       </div>
 
-      {/* Main content */}
       <div className="flex-1 overflow-y-auto">
         <div className="container py-8">{children}</div>
       </div>

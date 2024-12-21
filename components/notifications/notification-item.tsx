@@ -16,11 +16,13 @@ export function NotificationItem({
 }: NotificationItemProps) {
   return (
     <DropdownMenuItem
-      className="cursor-pointer p-4"
+      className="cursor-pointer p-4 rounded-lg border border-border bg-card hover:bg-hover hover:text-hover-foreground"
       onClick={() => onRead(notification.id)}
     >
       <div className="space-y-1">
-        <p className="font-medium leading-none">{notification.title}</p>
+        <p className="font-medium leading-none text-foreground">
+          {notification.title}
+        </p>
         <p className="text-sm text-muted-foreground">{notification.message}</p>
         <p className="text-xs text-muted-foreground">
           {formatDistanceToNow(new Date(notification.createdAt), {

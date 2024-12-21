@@ -36,7 +36,7 @@ export const Navbar = () => {
                 Artikel
               </Button>
             </Link>
-            {user?.role === "instructor" && (
+            {user && ( // Show instructor dashboard for all logged in users
               <Button
                 variant="ghost"
                 className="gap-2 text-muted-foreground"
