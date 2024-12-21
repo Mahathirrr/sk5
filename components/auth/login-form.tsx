@@ -2,10 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Github, Mail } from "lucide-react";
-import { supabase } from "@/lib/supabase/client";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useToast } from "@/components/ui/use-toast";
 
 export function LoginForm() {
+  const supabase = createClientComponentClient();
   const { toast } = useToast();
 
   const handleLogin = async (provider: "google" | "github") => {
@@ -14,8 +15,13 @@ export function LoginForm() {
         provider,
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+          },
         },
       });
+
       if (error) throw error;
     } catch (error) {
       toast({

@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase/client";
 import { nanoid } from "nanoid";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 /**
  * Uploads an image file to the specified Supabase storage bucket
@@ -8,15 +9,18 @@ import { nanoid } from "nanoid";
  * @returns Promise resolving to the public URL of the uploaded image
  * @throws Error if upload fails
  */
+
 export async function uploadImage(
   file: File,
   bucket: "thumbnails" | "avatars",
 ): Promise<string> {
+  const supabase = createClientComponentClient();
+
   try {
     // Generate a unique filename
     const fileExt = file.name.split(".").pop()?.toLowerCase();
     const fileName = `${nanoid()}.${fileExt}`;
-    const filePath = `${bucket}/${fileName}`;
+    const filePath = `${fileName}`;
 
     // Upload the file to Supabase storage
     const { error: uploadError, data } = await supabase.storage
@@ -31,14 +35,10 @@ export async function uploadImage(
       throw new Error("Failed to upload file to storage");
     }
 
-    if (!data?.path) {
-      throw new Error("No file path returned from storage");
-    }
-
     // Get the public URL for the uploaded file
     const {
       data: { publicUrl },
-    } = supabase.storage.from(bucket).getPublicUrl(data.path);
+    } = supabase.storage.from(bucket).getPublicUrl(filePath);
 
     return publicUrl;
   } catch (error) {
@@ -48,7 +48,6 @@ export async function uploadImage(
     );
   }
 }
-
 /**
  * Deletes an image from the specified Supabase storage bucket
  * @param path - The full path of the file to delete

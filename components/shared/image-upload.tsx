@@ -20,6 +20,7 @@ export function ImageUpload({
 }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const { toast } = useToast();
+  const fileInputRef = useState<HTMLInputElement | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -63,8 +64,9 @@ export function ImageUpload({
       });
     } finally {
       setIsUploading(false);
-      // Reset input value to allow uploading the same file again
-      e.target.value = "";
+      if (e.target) {
+        e.target.value = ""; // Reset input
+      }
     }
   };
 
@@ -77,25 +79,22 @@ export function ImageUpload({
         disabled={isUploading}
         className="hidden"
         id="image-upload"
+        ref={(ref) => fileInputRef[1](ref)}
       />
-      <label htmlFor="image-upload">
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full cursor-pointer"
-          disabled={isUploading}
-          asChild
-        >
-          <span>
-            {isUploading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Upload className="mr-2 h-4 w-4" />
-            )}
-            {isUploading ? "Uploading..." : "Upload Image"}
-          </span>
-        </Button>
-      </label>
+      <Button
+        type="button"
+        variant="outline"
+        className="w-full cursor-pointer"
+        disabled={isUploading}
+        onClick={() => fileInputRef[0]?.click()}
+      >
+        {isUploading ? (
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+        ) : (
+          <Upload className="mr-2 h-4 w-4" />
+        )}
+        {isUploading ? "Uploading..." : "Upload Image"}
+      </Button>
     </div>
   );
 }

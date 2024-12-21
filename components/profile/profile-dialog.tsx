@@ -25,10 +25,11 @@ import { ImageUpload } from "@/components/shared/image-upload";
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/lib/auth/hooks";
 import { updateProfile } from "@/lib/profile/api";
-import { Loader2 } from "lucide-react";
+import { Loader2, User, Camera } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const formSchema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 characters"),
+  fullName: z.string().min(2, "Name must be at least 2 characters").optional(),
   avatarUrl: z.string().url().optional(),
 });
 
@@ -55,7 +56,25 @@ export function ProfileDialog({ open, onOpenChange }: ProfileDialogProps) {
 
     try {
       setIsLoading(true);
-      await updateProfile(user.id, values);
+
+      // Only send fields that have been modified
+      const updates: { fullName?: string; avatarUrl?: string } = {};
+      if (values.fullName && values.fullName !== user.fullName) {
+        updates.fullName = values.fullName;
+      }
+      if (values.avatarUrl && values.avatarUrl !== user.avatarUrl) {
+        updates.avatarUrl = values.avatarUrl;
+      }
+
+      if (Object.keys(updates).length === 0) {
+        toast({
+          title: "No changes detected",
+          description: "Please make some changes before saving.",
+        });
+        return;
+      }
+
+      await updateProfile(user.id, updates);
 
       toast({
         title: "Profile updated",
@@ -76,14 +95,14 @@ export function ProfileDialog({ open, onOpenChange }: ProfileDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Profile</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="flex justify-center">
+            <div className="flex justify-center mb-6">
               <Avatar className="h-24 w-24">
                 <AvatarImage src={form.watch("avatarUrl") || undefined} />
                 <AvatarFallback className="text-lg">
@@ -92,36 +111,53 @@ export function ProfileDialog({ open, onOpenChange }: ProfileDialogProps) {
               </Avatar>
             </div>
 
-            <FormField
-              control={form.control}
-              name="avatarUrl"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Profile Picture</FormLabel>
-                  <FormControl>
-                    <ImageUpload
-                      onUploadComplete={(url) => field.onChange(url)}
-                      type="avatars"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <Tabs defaultValue="name" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="name" className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  Name
+                </TabsTrigger>
+                <TabsTrigger value="photo" className="flex items-center gap-2">
+                  <Camera className="h-4 w-4" />
+                  Photo
+                </TabsTrigger>
+              </TabsList>
 
-            <FormField
-              control={form.control}
-              name="fullName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter your full name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <TabsContent value="name" className="mt-4">
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter your full name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TabsContent>
+
+              <TabsContent value="photo" className="mt-4">
+                <FormField
+                  control={form.control}
+                  name="avatarUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Profile Picture</FormLabel>
+                      <FormControl>
+                        <ImageUpload
+                          onUploadComplete={(url) => field.onChange(url)}
+                          type="avatars"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TabsContent>
+            </Tabs>
 
             <div className="flex justify-end gap-4">
               <Button

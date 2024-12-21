@@ -6,9 +6,15 @@ import { useAuth } from "@/lib/auth/hooks";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { BookOpen, GraduationCap, FileText } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
   const { user } = useAuth();
+  const router = useRouter();
+
+  const handleInstructorClick = () => {
+    router.push("/instructor/dashboard");
+  };
 
   return (
     <nav className="sticky top-0 z-50 border-b bg-background/90 backdrop-blur-md">
@@ -31,12 +37,14 @@ export const Navbar = () => {
               </Button>
             </Link>
             {user?.role === "instructor" && (
-              <Link href="/instructor/dashboard">
-                <Button variant="ghost" className="gap-2 text-muted-foreground">
-                  <GraduationCap className="h-4 w-4" />
-                  Dashboard Instruktur
-                </Button>
-              </Link>
+              <Button
+                variant="ghost"
+                className="gap-2 text-muted-foreground"
+                onClick={handleInstructorClick}
+              >
+                <GraduationCap className="h-4 w-4" />
+                Dashboard Instruktur
+              </Button>
             )}
           </div>
         </div>
