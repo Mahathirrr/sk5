@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { format } from 'date-fns';
-import { id } from 'date-fns/locale';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 
 interface RecentEnrollmentsProps {
   enrollments: {
@@ -14,26 +14,30 @@ interface RecentEnrollmentsProps {
 
 export function RecentEnrollments({ enrollments }: RecentEnrollmentsProps) {
   return (
-    <Card>
+    <Card className="border-border bg-card transition-colors hover:border-primary/50">
       <CardHeader>
-        <CardTitle>Pendaftaran Terbaru</CardTitle>
+        <CardTitle className="text-lg font-semibold text-card-foreground">
+          Pendaftaran Terbaru
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
           {enrollments.map((enrollment, index) => (
             <div key={index} className="flex items-center gap-4">
-              <Avatar>
-                <AvatarFallback>
+              <Avatar className="border-2 border-primary/20">
+                <AvatarFallback className="bg-primary/10 text-primary">
                   {enrollment.studentName.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 space-y-1">
-                <p className="text-sm font-medium">{enrollment.studentName}</p>
+                <p className="text-sm font-medium text-card-foreground">
+                  {enrollment.studentName}
+                </p>
                 <p className="text-sm text-muted-foreground">
                   mendaftar di {enrollment.courseName}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  {format(new Date(enrollment.enrolledAt), 'dd MMMM yyyy', {
+                  {format(new Date(enrollment.enrolledAt), "dd MMMM yyyy", {
                     locale: id,
                   })}
                 </p>
@@ -45,3 +49,4 @@ export function RecentEnrollments({ enrollments }: RecentEnrollmentsProps) {
     </Card>
   );
 }
+

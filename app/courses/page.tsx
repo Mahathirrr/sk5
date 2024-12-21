@@ -1,10 +1,8 @@
-export const dynamic = "force-dynamic";
-
-import { getCourses } from "@/lib/courses/api";
+import { getCoursesFromServer } from "@/lib/courses/server";
 import { CourseCard } from "@/components/courses/course-card";
 
 export default async function CoursesPage() {
-  const courses = await getCourses();
+  const courses = await getCoursesFromServer();
 
   return (
     <div className="min-h-[calc(100vh-4rem)] flex flex-col">

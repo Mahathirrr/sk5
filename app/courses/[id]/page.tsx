@@ -1,9 +1,7 @@
-export const dynamic = "force-dynamic";
-
-import { getCourseById } from "@/lib/courses/api";
+import { getCourseByIdFromServer } from "@/lib/courses/server";
 import { CourseHeader } from "@/components/courses/course-header";
 import { CourseContent } from "@/components/courses/course-content";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { getServerSupabaseClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 
 interface CoursePageProps {
@@ -13,12 +11,12 @@ interface CoursePageProps {
 }
 
 export default async function CoursePage({ params }: CoursePageProps) {
-  const supabase = createServerSupabaseClient();
+  const supabase = await getServerSupabaseClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  const course = await getCourseById(params.id);
+  const course = await getCourseByIdFromServer(params.id);
 
   if (!course) {
     notFound();

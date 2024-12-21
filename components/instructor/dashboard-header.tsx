@@ -8,13 +8,15 @@ export function DashboardHeader() {
   return (
     <div className="mb-8 flex items-center justify-between">
       <div>
-        <h1 className="text-3xl font-bold">Dashboard Instruktur</h1>
+        <h1 className="text-3xl font-bold font-heading text-foreground">
+          Dashboard Instruktur
+        </h1>
         <p className="mt-2 text-muted-foreground">
           Kelola kursus dan pantau perkembangan siswa Anda
         </p>
       </div>
       <Link href="/instructor/courses/create">
-        <Button className="gap-2">
+        <Button className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
           <PlusCircle className="h-4 w-4" />
           Buat Kursus Baru
         </Button>
@@ -22,4 +24,3 @@ export function DashboardHeader() {
     </div>
   );
 }
-

@@ -15,7 +15,6 @@ interface InstructorLayoutProps {
 }
 
 export function InstructorLayout({ children }: InstructorLayoutProps) {
-  // Hapus logika otorisasi dan loading
   const navigation = [
     {
       name: "Dashboard",
@@ -46,7 +45,7 @@ export function InstructorLayout({ children }: InstructorLayoutProps) {
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)]">
-      <div className="hidden w-64 flex-shrink-0 border-r bg-card lg:block">
+      <div className="hidden w-64 flex-shrink-0 border-r border-border bg-background lg:block">
         <div className="flex h-full flex-col">
           <div className="flex-1 space-y-1 p-4">
             {navigation.map((item) => (
@@ -55,7 +54,8 @@ export function InstructorLayout({ children }: InstructorLayoutProps) {
                 href={item.href}
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                  "hover:bg-accent hover:text-accent-foreground",
+                  "text-muted-foreground",
+                  "hover:bg-primary hover:text-primary-foreground",
                   "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
                 )}
               >
@@ -66,10 +66,9 @@ export function InstructorLayout({ children }: InstructorLayoutProps) {
           </div>
         </div>
       </div>
-
-      <div className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto bg-background">
         <div className="container py-8">{children}</div>
-      </div>
+      </main>
     </div>
   );
 }
