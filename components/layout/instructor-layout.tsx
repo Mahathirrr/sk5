@@ -46,28 +46,26 @@ export function InstructorLayout({ children }: InstructorLayoutProps) {
   return (
     <div className="flex min-h-[calc(100vh-4rem)]">
       <div className="hidden w-64 flex-shrink-0 border-r border-border bg-background lg:block">
-        <div className="flex h-full flex-col">
-          <div className="flex-1 space-y-1 p-4">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                  "text-muted-foreground",
-                  "hover:bg-primary hover:text-primary-foreground",
-                  "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
-                )}
-              >
-                <item.icon className="h-4 w-4" />
-                {item.name}
-              </Link>
-            ))}
-          </div>
-        </div>
+        <nav className="flex h-full flex-col space-y-2 px-6 py-8">
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-4 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                "text-muted-foreground/60",
+                "hover:bg-accent hover:text-accent-foreground",
+                "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+              )}
+            >
+              <item.icon className="h-4 w-4" />
+              {item.name}
+            </Link>
+          ))}
+        </nav>
       </div>
       <main className="flex-1 overflow-y-auto bg-background">
-        <div className="container py-8">{children}</div>
+        <div className="mx-auto max-w-4xl px-8 py-8">{children}</div>
       </main>
     </div>
   );

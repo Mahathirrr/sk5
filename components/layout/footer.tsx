@@ -8,7 +8,7 @@ export function Footer() {
 
   return (
     <footer className="bg-muted/10 py-12">
-      <div className="container mx-auto flex flex-col items-center justify-between gap-8 md:flex-row">
+      <div className="container mx-auto flex flex-col items-center justify-between gap-6 md:flex-row">
         {/* Logo and Description */}
         <div className="flex items-center gap-4">
           <Logo />
