@@ -30,8 +30,10 @@
   --muted-foreground: 215 20% 65%;
 
   /* Teal Accent */
-  --accent: 173 80% 40%;
-  --accent-foreground: 210 40% 98%;
+  /* --accent: 173 80% 40%; */
+  /* --accent-foreground: 210 40% 98%; */
+  --accent: 262 72% 64%; /* Ungu terang */
+  --accent-foreground: 210 40% 98%; /* Warna teks pada hover */
 
   /* Danger Red */
   --destructive: 0 84% 60%;
@@ -43,6 +45,9 @@
   --ring: 262 83% 58%;
 
   --radius: 0.75rem;
+
+  --hover: 262 72% 64%; /* Ungu terang */
+  --hover-foreground: 210 40% 98%; /* Warna teks pada hover */
 }
 
 .dark {
@@ -74,6 +79,11 @@
   --border: 217 33% 17%;
   --input: 217 33% 17%;
   --ring: 262 83% 58%;
+}
+
+.hover\\:bg-hover:hover {
+  background-color: hsl(var(--hover));
+  color: hsl(var(--hover-foreground));
 }
 
 @layer base {
