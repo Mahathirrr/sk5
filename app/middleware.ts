@@ -31,16 +31,17 @@ export async function middleware(req: NextRequest) {
   }
 
   // Instructor routes protection
-  if (
-    req.nextUrl.pathname.startsWith("/instructor") &&
-    session?.user?.user_metadata?.role !== "instructor"
-  ) {
-    return NextResponse.redirect(new URL("/", req.url));
-  }
+  if (req.nextUrl.pathname.startsWith("/instructor")) {
+    // Get user role from database
+    const { data: userData } = await supabase
+      .from("users")
+      .select("role")
+      .eq("id", session?.user?.id)
+      .single();
 
-  // Handle auth callback
-  if (req.nextUrl.pathname === "/auth/callback") {
-    return res;
+    if (!userData || userData.role !== "instructor") {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
   }
 
   return res;
@@ -48,14 +49,5 @@ export async function middleware(req: NextRequest) {
 
 // Specify which routes should trigger this middleware
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder
-     */
-    "/((?!_next/static|_next/image|favicon.ico|public/).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|public/).*)"],
 };

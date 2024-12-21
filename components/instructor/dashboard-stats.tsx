@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { InstructorStats } from '@/lib/instructor/types';
-import { Users, BookOpen, DollarSign } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { InstructorStats } from "@/lib/instructor/types";
+import { Users, BookOpen, DollarSign } from "lucide-react";
 
 interface DashboardStatsProps {
   stats: InstructorStats;
@@ -16,9 +16,7 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{stats.totalStudents}</div>
-          <p className="text-xs text-muted-foreground">
-            siswa terdaftar
-          </p>
+          <p className="text-xs text-muted-foreground">siswa terdaftar</p>
         </CardContent>
       </Card>
       <Card>
@@ -28,19 +26,19 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{stats.totalCourses}</div>
-          <p className="text-xs text-muted-foreground">
-            kursus aktif
-          </p>
+          <p className="text-xs text-muted-foreground">kursus aktif</p>
         </CardContent>
       </Card>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Pendapatan</CardTitle>
+          <CardTitle className="text-sm font-medium">
+            Total Pendapatan
+          </CardTitle>
           <DollarSign className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
-            Rp {stats.totalRevenue.toLocaleString('id-ID')}
+            Rp {stats.totalRevenue.toLocaleString("id-ID")}
           </div>
           <p className="text-xs text-muted-foreground">
             pendapatan keseluruhan
@@ -50,3 +48,4 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
     </div>
   );
 }
+
